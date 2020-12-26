@@ -7,7 +7,6 @@ from geometry_msgs.msg import PoseStamped, Point
 from std_msgs.msg import String
 from std_srvs.srv import Empty
 
-
 class StateMachine:
     """
     state machine class from the example here: https://www.python-course.eu/finite_state_machine.php
