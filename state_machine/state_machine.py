@@ -3,7 +3,7 @@
 import rospy
 import sys
 import numpy as np
-from geometry_msgs.msg import PoseStamped, Point
+from geometry_msgs.msg import PoseStamped, Point, Quaternion
 from std_msgs.msg import String
 from std_srvs.srv import Empty
 
@@ -80,10 +80,11 @@ def roam(_):
     global target_position_list
     
     target_position = PoseStamped()
-    target_position.header.frame_id = '/{}/base_link'.format(robot_name)
+    target_position.header.frame_id = 'map'
     try:
         current_target = target_position_list.pop(0)
         target_position.pose.position = Point(current_target[0],current_target[1],current_target[2])
+        target_position.pose.orientation = Quaternion(0,0,0,1)
         goal_pub.publish(target_position)
     except:
         pass
@@ -114,10 +115,10 @@ def spray(_):
 #setting up the state machine  
 thorvald_StateMachine = StateMachine() 
 thorvald_StateMachine.add_state('LAUNCH',launch)
-thorvald_StateMachine.set_start('LAUNCH')
 thorvald_StateMachine.add_state('ROAM',roam)
 thorvald_StateMachine.add_state('GREENCLASSIFIER',green_classifier)
 thorvald_StateMachine.add_state('SPRAY',spray)
+thorvald_StateMachine.set_start('LAUNCH')
 
 if __name__ == '__main__':
     if(len(sys.argv)>1):
