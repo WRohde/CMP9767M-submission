@@ -3,8 +3,9 @@ import rospy
 import actionlib
 
 class ActionClientClass:
-    goalIDs = {'0':'PENDING','1':'ACTIVE','2':'SUCCEEDED','3':'SUCCEEDED','4':'ABORTED','5':'REJECTED','6':'PREEMPTING','7':'RECALLING','8':'RECALLED','9':'LOST'}
-    
+    goalIDs = {'0':'PENDING','1':'ACTIVE','2':'PREEMPTED','3':'SUCCEEDED','4':'ABORTED','5':'REJECTED','6':'PREEMPTING','7':'RECALLING','8':'RECALLED','9':'LOST'}
+    terminal_goal_states =[2,'PREEMPTED',8,'RECALLED', 5,'REJECTED', 4,'ABORTED', 3,'SUCCEEDED', 9,'LOST']
+
     def __init__(self,name,Action,timeout=rospy.Duration()):
         """
         This class implements a SimpleActionClient, and provides a non-blocking method for monitoring progress
@@ -24,12 +25,18 @@ class ActionClientClass:
     def send_goal(self,goal):
         self.client.send_goal(goal,done_cb=self.goal_done_callback)
 
-    def goal_results_check(self):
+    def goal_status_check(self):
         """
-        returns true if the result is available.
+        updates goalStatus and returns true if the current goal state is terminal.
         """
-        self.action_state = self.client.get_state()
-        pass
+        self.goalStatus = self.client.get_state()
+
+        if self.goalStatus in self.terminal_goal_states:
+            is_terminal = True
+        else: 
+            is_terminal = False
+        return is_terminal
+
 
     def get_result(self):
         return self.client.get_result()

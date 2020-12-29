@@ -84,13 +84,16 @@ def roam(_):
     
     target_position = MoveBaseGoal()
     target_position.target_pose.header.frame_id = 'map'
-    try:
-        current_target = target_position_list.pop(0)
-        target_position.target_pose.pose.position = Point(current_target[0],current_target[1],current_target[2])
-        target_position.target_pose.pose.orientation = Quaternion(0,0,0,1)
-        move_base_action_client.send_goal(target_position)
-    except:
-        pass
+    
+    if move_base_action_client.goal_status_check(): #if the move_base goalStatus is at a terminal state send a new goal.
+        try:
+            current_target = target_position_list.pop(0)
+            target_position.target_pose.pose.position = Point(current_target[0],current_target[1],current_target[2])
+            target_position.target_pose.pose.orientation = Quaternion(0,0,0,1)
+            move_base_action_client.send_goal(target_position)
+        except:
+            pass
+    print(move_base_action_client.goalStatus)
     
     #new state selection. 
     if(green_detection == True):
