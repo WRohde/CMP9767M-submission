@@ -4,6 +4,7 @@ import rospy
 import sys
 import numpy as np
 import actionlib
+from ActionClientClass import ActionClientClass
 from geometry_msgs.msg import PoseStamped, Point, Quaternion
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from std_msgs.msg import String
@@ -68,27 +69,6 @@ def callSprayService():
     except rospy.ServiceException:
         print 'Service call failed: %s' % e
 
-def goal_callback(goalStatus,goalResult):
-    pass
-
-def move_base_SimpleActionClient(goal_pose_stamped, timeout=rospy.Duration(60)):
-    """
-    A simple action client for move_base navigation.
-    #TODO consider making an ActionClientClass. 
-    #TODO add error handling if server is not online.
-    #TODO change to monitoring client.get_state instead of using client.wait_for_result to prevent blocking.
-    """
-    client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
-    client.wait_for_server(timeout) 
-
-    #prepare goal and send to the action server
-    goal = MoveBaseGoal()
-    goal.target_pose = goal_pose_stamped
-    client.send_goal(goal,done_cb=goal_callback)
-
-    client.wait_for_result(timeout) 
-    return client.get_result()
-
 #State machine states
 def launch(_):
     newState = 'ROAM'
@@ -102,13 +82,13 @@ def roam(_):
     global current_target
     global target_position_list
     
-    target_position = PoseStamped()
-    target_position.header.frame_id = 'map'
+    target_position = MoveBaseGoal()
+    target_position.target_pose.header.frame_id = 'map'
     try:
         current_target = target_position_list.pop(0)
-        target_position.pose.position = Point(current_target[0],current_target[1],current_target[2])
-        target_position.pose.orientation = Quaternion(0,0,0,1)
-        move_base_SimpleActionClient(target_position)
+        target_position.target_pose.pose.position = Point(current_target[0],current_target[1],current_target[2])
+        target_position.target_pose.pose.orientation = Quaternion(0,0,0,1)
+        move_base_action_client.send_goal(target_position)
     except:
         pass
     
@@ -157,6 +137,9 @@ if __name__ == '__main__':
     
     #publishers
     state_pub = rospy.Publisher('/{}/state'.format(robot_name),String,queue_size=0)
+
+    #action clients
+    move_base_action_client = ActionClientClass('move_base',MoveBaseAction)
 
     #start state machine
     thorvald_StateMachine.run('')
