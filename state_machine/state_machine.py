@@ -93,7 +93,6 @@ def roam(_):
             move_base_action_client.send_goal(target_position)
         except:
             pass
-    print(move_base_action_client.goalStatus)
     
     #new state selection. 
     if(green_detection == True):
