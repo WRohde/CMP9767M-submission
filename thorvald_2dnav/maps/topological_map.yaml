@@ -1,32 +1,32 @@
 - meta:
     map: topological_map
-    node: row_0_start
+    node: row_0_end
     pointset: topological_map
-    published_at: 1970-01-01 00:05:51.895000+00:00
-    timestamp: 351895000000
+    published_at: 1970-01-01 00:03:43.400000+00:00
+    timestamp: 223400000000
   node:
     edges:
     - action: move_base
-      edge_id: row_0_end row_0_start
+      edge_id: row_0_to_row_1
       inflation_radius: 0.0
       map_2d: cropped
-      node: row_0_end
+      node: row_1_end
       recovery_behaviours_config: ''
       top_vel: 0.55
     localise_by_topic: ''
     map: topological_map
-    name: row_0_start
+    name: row_0_end
     pointset: topological_map
     pose:
       orientation:
-        w: 0.00113787463716
-        x: -1.98745072856e-07
-        y: -5.77521846234e-07
-        z: 0.99999935262
+        x: -2.27204652974e-07
+        y: -1.36704906918e-09
+        z: 0.694901587681
+        w: 0.7191048487
       position:
-        x: -5.91423803669
-        y: -2.96075657991
-        z: -1.02282222569e-06
+        x: -6.0
+        y: -3.0
+        z: 0.0
     verts:
     - x: 0.692909657955
       y: 0.287012577057
@@ -48,15 +48,22 @@
     yaw_goal_tolerance: 0.1
 - meta:
     map: topological_map
-    node: row_0_end
+    node: row_0_start
     pointset: topological_map
-    published_at: 1970-01-01 00:04:43.595000+00:00
-    timestamp: 283595000000
+    published_at: 1970-01-01 00:03:43.375000+00:00
+    timestamp: 223375000000
   node:
-    edges: []
+    edges:
+    - action: move_base
+      edge_id: row_0_start row_0_end
+      inflation_radius: 0.0
+      map_2d: cropped
+      node: row_0_end
+      recovery_behaviours_config: ''
+      top_vel: 0.55
     localise_by_topic: ''
     map: topological_map
-    name: row_0_end
+    name: row_0_start
     pointset: topological_map
     pose:
       orientation:
@@ -65,9 +72,9 @@
         y: 8.94748709073e-08
         z: 0.999875960113
       position:
-        x: 5.96261121012
-        y: -3.00962457722
-        z: 1.47550281504e-05
+        x: 6.0
+        y: -3.0
+        z: 0.0
     verts:
     - x: 0.692909657955
       y: 0.287012577057
@@ -91,10 +98,24 @@
     map: topological_map
     node: row_1_end
     pointset: topological_map
-    published_at: 1970-01-01 00:07:47.915000+00:00
-    timestamp: 467915000000
+    published_at: 1970-01-01 00:03:43.410000+00:00
+    timestamp: 223410000000
   node:
-    edges: []
+    edges:
+    - action: move_base
+      edge_id: row_1
+      inflation_radius: 0.0
+      map_2d: topological_map
+      node: row_1_start
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: row_1_to_row_2
+      inflation_radius: 0.0
+      map_2d: topological_map
+      node: row_2_end
+      recovery_behaviours_config: ''
+      top_vel: 0.55
     localise_by_topic: ''
     map: topological_map
     name: row_1_end
@@ -106,9 +127,9 @@
         y: 3.59652243884e-07
         z: 0.0323246631482
       position:
-        x: 5.88556535427
-        y: -1.98348611607
-        z: 2.70275350784e-05
+        x: -6.0
+        y: -2.0
+        z: 0.0
     verts:
     - x: 0.692909657955
       y: 0.287012577057
@@ -132,24 +153,31 @@
     map: topological_map
     node: row_1_start
     pointset: topological_map
-    published_at: 1970-01-01 00:06:37.880000+00:00
-    timestamp: 397880000000
+    published_at: 1970-01-01 00:03:43.425000+00:00
+    timestamp: 223425000000
   node:
-    edges: []
+    edges: 
+    - action: move_base
+      edge_id: row_1_to_row_0
+      inflation_radius: 0.0
+      map_2d: cropped
+      node: row_0_start
+      recovery_behaviours_config: ''
+      top_vel: 0.55
     localise_by_topic: ''
     map: topological_map
     name: row_1_start
     pointset: topological_map
     pose:
-      orientation:
-        w: 0.999999394183
-        x: -9.24560325348e-08
-        y: 2.1113035476e-07
-        z: 0.00110074259548
+      orientation: 
+        x: 5.05771543345e-08
+        y: -2.89125758546e-07
+        z: -0.715363313509
+        w: 0.698752695655
       position:
-        x: -5.64104441796
-        y: -1.9861616457
-        z: 1.3738954915e-05
+        x: 6.0
+        y: -2.0
+        z: 0.0
     verts:
     - x: 0.692909657955
       y: 0.287012577057
@@ -173,24 +201,31 @@
     map: topological_map
     node: row_2_end
     pointset: topological_map
-    published_at: 1970-01-01 00:09:45.010000+00:00
-    timestamp: 585010000000
+    published_at: 1970-01-01 00:03:43.430000+00:00
+    timestamp: 223430000000
   node:
-    edges: []
+    edges:
+    - action: move_base
+      edge_id: row_2_to_row_3
+      inflation_radius: 0.0
+      map_2d: cropped
+      node: row_3_end
+      recovery_behaviours_config: ''
+      top_vel: 0.55
     localise_by_topic: ''
     map: topological_map
     name: row_2_end
     pointset: topological_map
     pose:
       orientation:
-        w: 0.00409653417304
-        x: 1.39621255631e-05
-        y: 2.08653808887e-09
-        z: 0.999991609071
+        x: -2.27204652974e-07
+        y: -1.36704906918e-09
+        z: 0.694901587681
+        w: 0.7191048487
       position:
-        x: -5.78987541093
-        y: -0.00594584945765
-        z: 2.15240065526e-05
+        x: -6.0
+        y: -0.0
+        z: 0.0
     verts:
     - x: 0.692909657955
       y: 0.287012577057
@@ -214,10 +249,24 @@
     map: topological_map
     node: row_2_start
     pointset: topological_map
-    published_at: 1970-01-01 00:08:56.285000+00:00
-    timestamp: 536285000000
+    published_at: 1970-01-01 00:03:43.430000+00:00
+    timestamp: 223430000000
   node:
-    edges: []
+    edges:
+    - action: move_base
+      edge_id: row_2
+      inflation_radius: 0.0
+      map_2d: topological_map
+      node: row_2_end
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: row_2_to_row_1
+      inflation_radius: 0.0
+      map_2d: topological_map
+      node: row_1_start
+      recovery_behaviours_config: ''
+      top_vel: 0.55
     localise_by_topic: ''
     map: topological_map
     name: row_2_start
@@ -229,9 +278,9 @@
         y: 1.12118782656e-07
         z: 0.99999963037
       position:
-        x: 6.15673106881
-        y: 0.0213238864839
-        z: 2.34222949418e-05
+        x: 6.0
+        y: 0.0
+        z: 0.0
     verts:
     - x: 0.692909657955
       y: 0.287012577057
@@ -255,10 +304,24 @@
     map: topological_map
     node: row_3_end
     pointset: topological_map
-    published_at: 1970-01-01 00:10:35.760000+00:00
-    timestamp: 635760000000
+    published_at: 1970-01-01 00:03:43.445000+00:00
+    timestamp: 223445000000
   node:
-    edges: []
+    edges:
+    - action: move_base
+      edge_id: row_3
+      inflation_radius: 0.0
+      map_2d: topological_map
+      node: row_3_start
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: row_3_to_row_4
+      inflation_radius: 0.0
+      map_2d: topological_map
+      node: row_4_end
+      recovery_behaviours_config: ''
+      top_vel: 0.55
     localise_by_topic: ''
     map: topological_map
     name: row_3_end
@@ -270,9 +333,9 @@
         y: 1.75420002443e-07
         z: 0.0189240821993
       position:
-        x: -5.78822190488
-        y: 0.959422470386
-        z: 2.4356072672e-06
+        x: -6.0
+        y: 1.0
+        z: 0.0
     verts:
     - x: 0.692909657955
       y: 0.287012577057
@@ -296,24 +359,31 @@
     map: topological_map
     node: row_3_start
     pointset: topological_map
-    published_at: 1970-01-01 00:11:19.255000+00:00
-    timestamp: 679255000000
+    published_at: 1970-01-01 00:03:43.455000+00:00
+    timestamp: 223455000000
   node:
-    edges: []
+    edges:
+    - action: move_base
+      edge_id: row_3_to_row_2
+      inflation_radius: 0.0
+      map_2d: cropped
+      node: row_2_start
+      recovery_behaviours_config: ''
+      top_vel: 0.55
     localise_by_topic: ''
     map: topological_map
     name: row_3_start
     pointset: topological_map
     pose:
-      orientation:
-        w: 0.999991030849
-        x: -3.85739499165e-07
-        y: 2.11119004117e-07
-        z: -0.00423535380342
+      orientation: 
+        x: 5.05771543345e-08
+        y: -2.89125758546e-07
+        z: -0.715363313509
+        w: 0.698752695655
       position:
-        x: 6.96383918977
-        y: 1.04531785489
-        z: -2.72184069916e-06
+        x: 6.0
+        y: 1.0
+        z: 0.0
     verts:
     - x: 0.692909657955
       y: 0.287012577057
@@ -337,24 +407,31 @@
     map: topological_map
     node: row_4_end
     pointset: topological_map
-    published_at: 1970-01-01 00:13:11.885000+00:00
-    timestamp: 791885000000
+    published_at: 1970-01-01 00:03:43.470000+00:00
+    timestamp: 223470000000
   node:
-    edges: []
+    edges:
+    - action: move_base
+      edge_id: row_4_to_row_5
+      inflation_radius: 0.0
+      map_2d: cropped
+      node: row_5_end
+      recovery_behaviours_config: ''
+      top_vel: 0.55
     localise_by_topic: ''
     map: topological_map
     name: row_4_end
     pointset: topological_map
     pose:
       orientation:
-        w: -0.00502923013957
-        x: -2.29870027347e-07
-        y: -5.09542706951e-08
-        z: 0.999987353342
+        x: -2.27204652974e-07
+        y: -1.36704906918e-09
+        z: 0.694901587681
+        w: 0.7191048487
       position:
-        x: -6.61719862291
-        y: 2.96119669357
-        z: 8.79752300076e-06
+        x: -6.0
+        y: 3.0
+        z: 0.0
     verts:
     - x: 0.692909657955
       y: 0.287012577057
@@ -378,10 +455,24 @@
     map: topological_map
     node: row_4_start
     pointset: topological_map
-    published_at: 1970-01-01 00:12:07.395000+00:00
-    timestamp: 727395000000
+    published_at: 1970-01-01 00:03:43.485000+00:00
+    timestamp: 223485000000
   node:
-    edges: []
+    edges:
+    - action: move_base
+      edge_id: row_4
+      inflation_radius: 0.0
+      map_2d: topological_map
+      node: row_4_end
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: row_4_to_row_3
+      inflation_radius: 0.0
+      map_2d: topological_map
+      node: row_3_start
+      recovery_behaviours_config: ''
+      top_vel: 0.55
     localise_by_topic: ''
     map: topological_map
     name: row_4_start
@@ -393,9 +484,9 @@
         y: -2.79934176634e-07
         z: 0.999845179781
       position:
-        x: 6.89465562836
-        y: 3.01775702332
-        z: 5.11629049016e-07
+        x: 6.0
+        y: 3.0
+        z: 0.0
     verts:
     - x: 0.692909657955
       y: 0.287012577057
@@ -419,10 +510,17 @@
     map: topological_map
     node: row_5_end
     pointset: topological_map
-    published_at: 1970-01-01 00:13:45.870000+00:00
-    timestamp: 825870000000
+    published_at: 1970-01-01 00:03:43.495000+00:00
+    timestamp: 223495000000
   node:
-    edges: []
+    edges:
+    - action: move_base
+      edge_id: row_5
+      inflation_radius: 0.0
+      map_2d: topological_map
+      node: row_5_start
+      recovery_behaviours_config: ''
+      top_vel: 0.55
     localise_by_topic: ''
     map: topological_map
     name: row_5_end
@@ -434,9 +532,9 @@
         y: 3.6084134605e-07
         z: -0.0124782949296
       position:
-        x: -6.50900520225
-        y: 3.93997265098
-        z: 1.18718281048e-05
+        x: -6.0
+        y: 4.0
+        z: 0.0
     verts:
     - x: 0.692909657955
       y: 0.287012577057
@@ -460,24 +558,31 @@
     map: topological_map
     node: row_5_start
     pointset: topological_map
-    published_at: 1970-01-01 00:14:43.555000+00:00
-    timestamp: 883555000000
+    published_at: 1970-01-01 00:03:43.515000+00:00
+    timestamp: 223515000000
   node:
-    edges: []
+    edges:
+    - action: move_base
+      edge_id: row_5_to_row_4
+      inflation_radius: 0.0
+      map_2d: cropped
+      node: row_4_start
+      recovery_behaviours_config: ''
+      top_vel: 0.55
     localise_by_topic: ''
     map: topological_map
     name: row_5_start
     pointset: topological_map
     pose:
-      orientation:
-        w: 0.999896503365
-        x: -3.55513634556e-07
-        y: -1.09318588522e-07
-        z: 0.0143868884281
+      orientation: 
+        x: 5.05771543345e-08
+        y: -2.89125758546e-07
+        z: -0.715363313509
+        w: 0.698752695655
       position:
-        x: 7.45526533086
-        y: 3.94846956596
-        z: 5.9536981023e-07
+        x: 6.0
+        y: 4.0
+        z: 0.0
     verts:
     - x: 0.692909657955
       y: 0.287012577057
