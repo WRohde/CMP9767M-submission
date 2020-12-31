@@ -4,33 +4,19 @@
         <arg name="second_robot" value="false"/>
         <arg name="obstacles" value="false"/>
         <arg name="fake_localisation" value="true"/>
-        <arg name="map_server" value="true"/>
+        <arg name="map_server" value="true"/> 
     </include>
-    
+
+    <!-- Topological navigation -->
+    <include file="topological_navigation.launch" />
+
     <!-- custom nodes -->
     <node pkg="vision" type="vision_node.py" name="vision_node" args="thorvald_001"/>
     <node pkg="state_machine" type="state_machine.py" name="state_machine" args="thorvald_001" />
 
     <!-- rviz -->
-    <node pkg="rviz" type="rviz" name="rviz" args="-d thorvald_rviz_config.rviz" />
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find thorvald_2dnav)/thorvald_rviz_config.rviz" />
 
     <!--- Run AMCL --> 
     <include file="$(find amcl)/examples/amcl_omni.launch" />
-
-    <!-- move_base -->
-	<node name="move_base" pkg="move_base" type="move_base">
-        <!-- the uol tutorial had this remapping but I am not sure if it is necessary.-->
-        <!-- <remap from="odom" to="$(arg robot_name)/odometry/base_raw" /> -->
-        <remap from="cmd_vel" to="thorvald_001/nav_vel" /> 
-
-        <!-- costmap config -->
-        <rosparam file="$(find thorvald_2dnav)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
-        <rosparam file="$(find thorvald_2dnav)/config/costmap_common_params.yaml" command="load" ns="local_costmap"/>
-        <rosparam file="$(find thorvald_2dnav)/config/global_costmap_params.yaml" command="load"/>
-        <rosparam file="$(find thorvald_2dnav)/config/local_costmap_params.yaml" command="load"/>
-
-        <!-- planner config -->
-        <rosparam file="$(find thorvald_2dnav)/config/base_local_planner_params.yaml" command="load"/>
-
-	</node> 
 </launch>
