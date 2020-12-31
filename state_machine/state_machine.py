@@ -46,11 +46,6 @@ class StateMachine:
             else:
                 handler = self.handlers[newState.upper()]
             rospy.sleep(0.1)
-            
-#the target_position_list is a list of waypoints for the robot to navigate to.
-#TODO change this to topological navigation of rows. Nice to have: autonomously generate topological nodes.
-target_position_list = [[8,-8,0],[8,8,0],[5,-8,0],[5,8,0],[0,-8,0],[0,8,0],[-5,-8,0],[-5,8,0],[-8,8,0],[-8,-8,0]]
-current_target = []
 
 #greendetection callback.
 green_detection = False
@@ -87,9 +82,6 @@ def roam(_):
     
     if move_base_action_client.goal_status_check(): #if the move_base goalStatus is at a terminal state send a new goal.
         try:
-            current_target = target_position_list.pop(0)
-            target_position.target_pose.pose.position = Point(current_target[0],current_target[1],current_target[2])
-            target_position.target_pose.pose.orientation = Quaternion(0,0,0,1)
             move_base_action_client.send_goal(target_position)
         except:
             pass
