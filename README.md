@@ -2,6 +2,7 @@
 Code for the CMP9767M assignment 1.
 
 ## chosen specialisation.
+Currently veering towards deployment, and generating an optimised topological map.
 
 ## 100 word summary of approach to the project
 

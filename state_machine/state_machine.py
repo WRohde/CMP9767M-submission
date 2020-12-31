@@ -7,6 +7,8 @@ import actionlib
 from ActionClientClass import ActionClientClass
 from geometry_msgs.msg import PoseStamped, Point, Quaternion
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+from topological_navigation.msg import GotoNodeAction, GotoNodeGoal
+from strands_navigation_msgs.msg import TopologicalMap
 from std_msgs.msg import String
 from std_srvs.srv import Empty
 
@@ -56,6 +58,18 @@ def green_detection_callback(data):
     else:
         green_detection = False 
 
+node_list =[]
+def topological_map_callback(data):
+    """
+    updates the node_list with the names of nodes in the topological map
+    """
+    global node_list
+    nodes = []
+    for node in data.nodes:
+        nodes.append(node.name)
+    node_list = nodes
+
+
 def callSprayService():
     rospy.wait_for_service('/thorvald_001/spray')
     try:
@@ -71,18 +85,14 @@ def launch(_):
 
 def roam(_):
     """
-    In this state the robot moves to positions from a list until it finds green in which case the system
-    will transition to the GREENCLASSIFIER state.
+    In this state the robot travels to a node in the topological map.
     """
-    global current_target
-    global target_position_list
-    
-    target_position = MoveBaseGoal()
-    target_position.target_pose.header.frame_id = 'map'
-    
-    if move_base_action_client.goal_status_check(): #if the move_base goalStatus is at a terminal state send a new goal.
+    #if the topological_navigation goalStatus is at a terminal state send a new goal.
+    if topological_navigation_client.goal_status_check(): 
+        goal = GotoNodeGoal()
+        goal.target = np.random.choice(node_list)
         try:
-            move_base_action_client.send_goal(target_position)
+            topological_navigation_client.send_goal(goal)
         except:
             pass
     
@@ -128,12 +138,14 @@ if __name__ == '__main__':
 
     #subscribers
     green_detection_sub = rospy.Subscriber('/{}/green_detected'.format(robot_name),String,green_detection_callback)
-    
+    topological_map_sub = rospy.Subscriber('/topological_map',TopologicalMap,topological_map_callback)
+
     #publishers
     state_pub = rospy.Publisher('/{}/state'.format(robot_name),String,queue_size=0)
 
     #action clients
-    move_base_action_client = ActionClientClass('move_base',MoveBaseAction)
+    move_base_action_client = ActionClientClass('/{}/move_base'.format(robot_name),MoveBaseAction)
+    topological_navigation_client = ActionClientClass('/thorvald_001/topological_navigation',GotoNodeAction)
 
     #start state machine
     thorvald_StateMachine.run('')
