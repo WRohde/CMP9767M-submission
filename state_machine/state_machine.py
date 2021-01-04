@@ -69,7 +69,6 @@ def topological_map_callback(data):
         nodes.append(node.name)
     node_list = nodes
 
-
 def callSprayService():
     rospy.wait_for_service('/thorvald_001/spray')
     try:
