@@ -6,6 +6,7 @@ import numpy as np
 import cv2
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
+import image_geometry
 from cv_bridge import CvBridge, CvBridgeError
 
 def mask_crop(hsv_image):
