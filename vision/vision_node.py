@@ -13,6 +13,9 @@ from sensor_msgs.msg import Image, CameraInfo
 from cv_bridge import CvBridge, CvBridgeError
 from geometry_msgs.msg import Pose, PoseStamped, PoseArray
 
+#ros services
+from std_srvs.srv import Empty
+
 def mask_crop(hsv_image):
     crop_high = (160,200,200)
     crop_low = (40,100,1)
@@ -81,7 +84,7 @@ def connected_components_from_image(image,filter_small_connected_components=True
     
     return num_labels,labels_im,stats,centroids
 
-class image_converter:
+class image_processing:
     camera_model = None
     cv_image = None
     
@@ -106,19 +109,26 @@ class image_converter:
         try:
             self.cv_image = self.bridge.imgmsg_to_cv2(data,"bgr8")
             cv_image = self.cv_image
-            print("received image")
         except CvBridgeError as e:
             print(e)
 
-        #TODO split image_callback from image_processing when changing to service.
-
+    def detect_weeds(self,req):
+        """
+        Detects weeds in the bgr image self.cv_image. Publishes a pose_array of detected weeds in the /map frame to /robot_name/weed_pose_array, 
+        and self.cv_image with magenta circles marking weed targets to /robot_name/opencv_image. 
+        Colour is used to segment and classify the image, k means clustering is used to reduce the number of targets.   
+        """
         if self.camera_model is None:
             return #TODO add exception or similar to aid debugging this
         if self.cv_image is None:
             return #TODO add exception or similar to aid debugging this
         
         print("processing image")
-        weed_pixel_coords, crop_pixel_coords = self.process_image_colour_kmeans(cv_image)
+        weed_pixel_coords, crop_pixel_coords = self.process_image_colour_kmeans(self.cv_image)
+        #check if process_image_colour_kmeans detected any weeds.
+        if weed_pixel_coords is None:
+            print("kmeans clustering failed, insufficient detections")
+            return 
         print("image processed")
 
         #transform pixel coordinates to camera frame
@@ -185,6 +195,8 @@ class image_converter:
             crop_pixel_coords = None
         try:
             weed_pixel_coords = kmeans_centroids(weed_centroids,num_clusters=min(num_weed_targets,len(weed_centroids)-1))
+            #verify that weed_pixel_coords has shape (n,2)
+            assert weed_pixel_coords.shape[1] == 2
         except:
             weed_pixel_coords = None
         
@@ -199,6 +211,6 @@ if __name__ == '__main__':
         robot_name = "thorvald_001"
 
     rospy.init_node('vision_node', anonymous=True)
-    ic = image_converter()
-    #s = rospy.Service('crop_and_weed_targets', AddTwoInts, handle_add_two_ints)
+    image_processing = image_processing()
+    s = rospy.Service('/{}/detect_weeds'.format(robot_name), Empty, image_processing.detect_weeds)
     rospy.spin()
