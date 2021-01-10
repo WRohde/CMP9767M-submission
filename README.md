@@ -13,6 +13,7 @@ The navigation for this project currently uses topological navigation and the DW
 
 * install LCAS ROS
 * git clone the repo to the src folder of a catkin workspace. Run catkin_make from the root of the catkin_workspace.
+* run source devel/setup.bash
 * navigate to the launch folder and launch the stack with roslaunch thorvald.launch
 * run rosrun topological_utils load_yaml_map.py $(rospack find thorvald_2dnav)/maps/topological_map.yaml -f
 
