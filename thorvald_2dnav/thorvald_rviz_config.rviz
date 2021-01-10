@@ -441,11 +441,7 @@ Visualization Manager:
           Marker Topic: /topological_map_visualisation
           Name: topo_map
           Namespaces:
-            /edges: true
-            /legend: true
-            /names: true
-            /nodes: true
-            /zones: true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/InteractiveMarkers
@@ -459,13 +455,13 @@ Visualization Manager:
           Value: true
         - Class: rviz/InteractiveMarkers
           Enable Transparency: true
-          Enabled: true
+          Enabled: false
           Name: edge_update
           Show Axes: false
-          Show Descriptions: true
+          Show Descriptions: false
           Show Visual Aids: false
           Update Topic: /topological_map_edges/update
-          Value: true
+          Value: false
       Enabled: true
       Name: Topo_Nav
     - Class: rviz/Image
