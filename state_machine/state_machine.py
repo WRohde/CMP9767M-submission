@@ -66,7 +66,6 @@ def weed_targets_callback(data):
     """
     global weed_targets
     weed_targets = data
-    print(weed_targets)
 
 node_list =[]
 def topological_map_callback(data):
@@ -127,11 +126,11 @@ def set_next_goal_node(_):
             pass
     
     #new state selection. 
-    newState = 'WAITFORNEXTNODE'
+    newState = 'WAITFORNEXTGOALNODE'
     print('transistion to state:',newState)
     return(newState,_)
 
-def wait_for_next_node(_):
+def wait_for_next_goal_node(_):
     """
     In this state the robot travels to the next goal node in the topological map.
     """
@@ -142,9 +141,9 @@ def wait_for_next_node(_):
             newState = 'DETECTWEEDS'
         else:
             newState = 'SETNEXTGOALNODE'
+        print('transistion to state:',newState)
     else:
-        newState = 'WAITFORNEXTNODE'
-    print('transistion to state:',newState)
+        newState = 'WAITFORNEXTGOALNODE'
     return(newState,_)
 
 def detect_weeds_state(_):
@@ -183,10 +182,9 @@ def wait_for_weed(_):
     #if move_base has arrived at the weed transition to spray.
     if move_base_action_client.goal_status_check():
         newState = 'SPRAY'
+        print('transistion to state:',newState)
     else:
         newState = 'WAITFORWEED'
-
-    print('transistion to state:',newState)
     return(newState,_)
 
 def spray(_): 
@@ -199,7 +197,7 @@ def spray(_):
 thorvald_StateMachine = StateMachine() 
 thorvald_StateMachine.add_state('LAUNCH',launch)
 thorvald_StateMachine.add_state('SETNEXTGOALNODE',set_next_goal_node)
-thorvald_StateMachine.add_state('WAITFORNEXTNODE',wait_for_next_node)
+thorvald_StateMachine.add_state('WAITFORNEXTGOALNODE',wait_for_next_goal_node)
 thorvald_StateMachine.add_state('DETECTWEEDS',detect_weeds_state)
 thorvald_StateMachine.add_state('SETWEEDGOAL',set_weed_goal)
 thorvald_StateMachine.add_state('WAITFORWEED',wait_for_weed)
