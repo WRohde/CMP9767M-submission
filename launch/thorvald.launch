@@ -9,10 +9,10 @@
 
     <!-- Topological navigation -->
     <include file="topological_navigation.launch" />
-
+   
     <!-- custom nodes -->
     <node pkg="vision" type="vision_node.py" name="vision_node" args="thorvald_001"/>
-    <node pkg="state_machine" type="state_machine.py" name="state_machine" args="thorvald_001" />
+    <node pkg="state_machine" type="state_machine.py" name="state_machine" args="thorvald_001" output="screen"/>
 
     <!-- rviz -->
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find thorvald_2dnav)/thorvald_rviz_config.rviz" />

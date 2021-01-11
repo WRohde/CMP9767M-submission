@@ -115,7 +115,8 @@ class image_processing:
     def detect_weeds(self,req):
         """
         Detects weeds in the bgr image self.cv_image. Publishes a pose_array of detected weeds in the /map frame to /robot_name/weed_pose_array, 
-        and self.cv_image with magenta circles marking weed targets to /robot_name/opencv_image. 
+        and self.cv_image with magenta circles marking weed targets to /robot_name/opencv_image. NOTE the poses in the pose_array have orientation 
+        0,0,1,0 a more appropriate orientation should be assigned elsewhere if the pose is used for navigation. 
         Colour is used to segment and classify the image, k means clustering is used to reduce the number of targets.   
         """
         if self.camera_model is None:
@@ -142,6 +143,8 @@ class image_processing:
             weed_pose = PoseStamped()
             weed_pose.header.frame_id = self.camera_model.tfFrame()
             weed_pose.pose.position.x,weed_pose.pose.position.y,weed_pose.pose.position.z = weed_unit_vector * distance_to_floor
+            #orientation is arbitrarily set to 0,0,1,0 so that the quaternion is valid
+            weed_pose.pose.orientation.z = 1
             
             #transform weed_pose to the map frame
             try: 

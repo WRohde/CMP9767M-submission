@@ -85,7 +85,7 @@ def callSprayService():
         callSpray = rospy.ServiceProxy('/thorvald_001/spray', Empty)
         return callSpray()
     except rospy.ServiceException:
-        print 'Service call failed: %s' % e
+        print 'Spray Service call failed: %s' % e
 
 def detect_weeds_service():
     """
@@ -179,7 +179,7 @@ def set_weed_goal(_):
     print('transistion to state:',newState)
     return(newState,_)
 
-def wait_for_weed():
+def wait_for_weed(_):
     #if move_base has arrived at the weed transition to spray.
     if move_base_action_client.goal_status_check():
         newState = 'SPRAY'
@@ -193,7 +193,7 @@ def spray(_):
     callSprayService()
     newState = 'SETWEEDGOAL'
     print('transistion to state:',newState)
-    return(newState,weed_pose)
+    return(newState,_)
 
 #setting up the state machine  
 thorvald_StateMachine = StateMachine() 
