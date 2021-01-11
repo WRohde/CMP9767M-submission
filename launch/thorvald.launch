@@ -11,7 +11,7 @@
     <include file="topological_navigation.launch" />
    
     <!-- custom nodes -->
-    <node pkg="vision" type="vision_node.py" name="vision_node" args="thorvald_001"/>
+    <node pkg="vision" type="vision_node.py" name="vision_node" args="thorvald_001" output="screen"/>
     <node pkg="state_machine" type="state_machine.py" name="state_machine" args="thorvald_001" output="screen"/>
 
     <!-- rviz -->
