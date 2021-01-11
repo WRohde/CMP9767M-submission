@@ -16,12 +16,6 @@ from geometry_msgs.msg import Pose, PoseStamped, PoseArray
 #ros services
 from std_srvs.srv import Empty
 
-def mask_crop(hsv_image):
-    crop_high = (160,200,200)
-    crop_low = (40,100,1)
-    crop_mask = cv2.inRange(hsv_image, crop_low, crop_high)
-    return crop_mask
-
 def mask_weeds(hsv_image):
     weeds_high = (160,100,200)
     weeds_low = (55,1,1)
@@ -128,7 +122,7 @@ class image_processing:
             return #TODO add exception or similar to aid debugging this
         
         print("processing image")
-        weed_pixel_coords, crop_pixel_coords = self.process_image_colour_kmeans(self.cv_image)
+        weed_pixel_coords = self.process_image_colour_kmeans(self.cv_image)
         #check if process_image_colour_kmeans detected any weeds.
         if weed_pixel_coords is None:
             print("kmeans clustering failed, insufficient detections")
@@ -178,7 +172,7 @@ class image_processing:
         except CvBridgeError as e:
             print(e)
 
-    def process_image_colour_kmeans(self, image, num_weed_targets=10,num_crop_targets=10):
+    def process_image_colour_kmeans(self, image, num_weed_targets=10):
         """
         processes a BGR image of crops and weeds, using colour to segment and classify crops, and kmeans 
         clustering to identify targets.
@@ -186,26 +180,19 @@ class image_processing:
         
         hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
         
-        #crop_result and weed_result are masked to show only crops and only weeds respectively. 
-        #the colour thresholds work well for crops in rows 0 and 1, reasonably well for rows 2 and 3,
-        #and poorly for crops in rows 4 and 5.
+        #weed_result is a masked image showing only weeds. the colour threshold works well for crops in rows 0 and 1, 
+        #reasonably well for rows 2 and 3, and poorly for crops in rows 4 and 5.
         print("applying colour mask")
-        crop_result = cv2.bitwise_and(image,image,mask=mask_crop(hsv_image))
         weed_result = cv2.bitwise_and(image,image,mask=mask_weeds(hsv_image))
         
         #get the connected_components in the masked_images and filter small components
         print("getting connected components")
-        crop_num_labels, crop_labels_im, crop_stats, crop_centroids = connected_components_from_image(crop_result,filter_small_connected_components=True)
         weed_num_labels, weed_labels_im, weed_stats, weed_centroids = connected_components_from_image(weed_result,filter_small_connected_components=True)
         
-        #run kmeans clustering on the centroids of crop and weed components.If there are not enough centroids 
-        #passed to kmeans the exception will set coords to None
+        #run kmeans clustering on the centroids of weed components.If there are not enough centroids passed to kmeans the exception will set 
+        # weed_pixel_coords to None
         try:
-            crop_pixel_coords = kmeans_centroids(crop_centroids,num_clusters=min(num_crop_targets,len(crop_centroids)-1))
-        except:
-            crop_pixel_coords = None
-        try:
-            print("running kmeans on crop centroids.")
+            print("running kmeans on weed centroids.")
             weed_pixel_coords = kmeans_centroids(weed_centroids,num_clusters=min(num_weed_targets,len(weed_centroids)-1))
             #verify that weed_pixel_coords has shape (n,2)
             assert weed_pixel_coords.shape[1] == 2
@@ -213,7 +200,7 @@ class image_processing:
             print("kmeans failed, or there were not enough centroids passed to it. returning None")
             weed_pixel_coords = None
         
-        return weed_pixel_coords, crop_pixel_coords
+        return weed_pixel_coords
 
 
 if __name__ == '__main__':
