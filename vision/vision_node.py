@@ -160,7 +160,7 @@ class image_processing:
 
         #preparing and publishing image with added weed targets. 
         #image should be rgb for display in rviz.
-        output_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
+        output_image = cv2.cvtColor(self.cv_image, cv2.COLOR_BGR2RGB)
         #plot a circle at each detected weed.
         if weed_pixel_coords is not None:
             for coord in weed_pixel_coords:
