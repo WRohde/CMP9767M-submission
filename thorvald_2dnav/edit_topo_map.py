@@ -8,7 +8,7 @@ import numpy as np
 import rospy
 
 #ros message and service types
-from strands_navigation_msgs.srv import AddNode, AddEdge, GetEdgesBetweenNodes
+from strands_navigation_msgs.srv import AddNode, AddEdge, AddTag, GetTags, GetEdgesBetweenNodes, GetTaggedNodes
 from geometry_msgs.msg import PoseStamped,Pose
 from strands_navigation_msgs.msg import TopologicalMap
 
@@ -63,6 +63,36 @@ def getEdgesBetweenNodes(node_a,node_b,returnAsList):
             return edge_id_list
         else:
             return callGetEdgesBetweenNodesService(node_a,node_b)
+    except rospy.ServiceException:
+        print('Service call failed: %s' % e)
+
+def addTagToNode(tag,nodes):
+    """
+    nodes should be a string list of node names.
+    """
+    rospy.wait_for_service('/topological_map_manager/add_tag_to_node')
+    try:
+        callAddTagToNodeService = rospy.ServiceProxy('/topological_map_manager/add_tag_to_node', AddTag)
+        return callAddTagToNodeService(tag,nodes)
+    except rospy.ServiceException:
+        print('Service call failed: %s' % e)
+
+def getTags():
+    """
+    returns the list of tags applied to nodes in the topological map.
+    """
+    rospy.wait_for_service('/topological_map_manager/get_tags')
+    try:
+        callGetTagsService = rospy.ServiceProxy('/topological_map_manager/get_tags', GetTags)
+        return callGetTagsService().tags
+    except rospy.ServiceException:
+        print('Service call failed: %s' % e)
+
+def getTaggedNodes(tag):
+    rospy.wait_for_service('/topological_map_manager/get_tagged_nodes')
+    try:
+        callGetTaggedNodesService = rospy.ServiceProxy('/topological_map_manager/get_tagged_nodes', GetTaggedNodes)
+        return callGetTaggedNodesService(tag).nodes
     except rospy.ServiceException:
         print('Service call failed: %s' % e)
 
