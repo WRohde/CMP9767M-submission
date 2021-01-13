@@ -16,6 +16,7 @@ from std_msgs.msg import String
 
 #ros services
 from std_srvs.srv import Empty
+from strands_navigation_msgs.srv import GetTags, GetTaggedNodes
 
 #utils
 from ActionClientClass import ActionClientClass
@@ -58,7 +59,6 @@ class StateMachine:
                 handler = self.handlers[newState.upper()]
             r.sleep()
 
-
 weed_targets = PoseArray()
 def weed_targets_callback(data):
     """
@@ -70,13 +70,17 @@ def weed_targets_callback(data):
 node_list =[]
 def topological_map_callback(data):
     """
-    updates the node_list with the names of nodes in the topological map
+    updates the node_list with the nodes in the topological map.
     """
     global node_list
-    nodes = []
-    for node in data.nodes:
-        nodes.append(node.name)
-    node_list = nodes
+    node_list = data.nodes
+
+current_node = ""
+def current_node_callback(data):
+    global current_node
+    current_node = data.data
+
+# service calls
 
 def callSprayService():
     rospy.wait_for_service('/thorvald_001/spray')
@@ -98,11 +102,74 @@ def detect_weeds_service():
     except rospy.ServiceException:
         print 'Service call failed: %s' % e
 
+def getTags():
+    """
+    returns the list of tags applied to nodes in the topological map.
+    """
+    rospy.wait_for_service('/topological_map_manager/get_tags')
+    try:
+        callGetTagsService = rospy.ServiceProxy('/topological_map_manager/get_tags', GetTags)
+        return callGetTagsService().tags
+    except rospy.ServiceException:
+        print('Service call failed: %s' % e)
+
+def getTaggedNodes(tag):
+    rospy.wait_for_service('/topological_map_manager/get_tagged_nodes')
+    try:
+        callGetTaggedNodesService = rospy.ServiceProxy('/topological_map_manager/get_tagged_nodes', GetTaggedNodes)
+        return callGetTaggedNodesService(tag).nodes
+    except rospy.ServiceException:
+        print('Service call failed: %s' % e)
+
+def getNextNodeWithTag(tag,currentnode):
+    """
+    Checks the edges of currentnode to see which destination nodes have the tag. returns the first
+    node found with tag, or None if none of the edges of currentnode have that tag.
+    """
+    tagged_nodes = getTaggedNodes(tag)
+
+    #look up currentnode in node_list
+    for node in node_list:
+        if node.name is currentnode:
+            #check if any edges end at a node with tag
+            for edge in node.edges:
+                if edge.node in tagged_nodes:
+                    #return first tagged node
+                    return edge.node
+    return None
+
+
 #State machine states
+
+tagged_nodes_dict = {}
+row_tags = None
+current_row = None
 def launch(_):
-    #topological navigation fails if first node isn't 
+
+    #the topological map has tags "start","end", and a tag for each row in the format "row_n"
+    #where n is the row number.
+    tags = getTags()
+
+    #initialising tagged_nodes_dict
+    global tagged_nodes_dict
+    for tag in tags:
+        tagged_nodes_dict[tag] = getTaggedNodes(tag)
+    
+    #row_tags is used to ensure each row is visited once.
+    global row_tags
+    row_tags = tags
+    row_tags.remove('start')
+    row_tags.remove('end')
+
+    #choose a row to harvest from
+    global current_row
+    current_row = row_tags.pop()
+    print("current_row target is",current_row)
+
+    #set first goal.
+    goal_node = list(set(tagged_nodes_dict[current_row]).intersection(tagged_nodes_dict['start']))[0]
     goal = GotoNodeGoal()
-    goal.target = 'row_2_start'
+    goal.target = goal_node
     try:
         topological_navigation_client.send_goal(goal)
     except:
@@ -118,8 +185,21 @@ def set_next_goal_node(_):
     """
     #if the topological_navigation goalStatus is at a terminal state send a new goal.
     if topological_navigation_client.goal_status_check(): 
+        #if at the end of a row choose a new row and navigate to the start of it.
+        if current_node in tagged_nodes_dict['end']:
+            global current_row
+            global row_tags
+            current_row = row_tags.pop()
+            #TODO this line is a massive hack
+            goal_node = list(set(tagged_nodes_dict[current_row]).intersection(tagged_nodes_dict['start']))[0]
+            print('goal_node')
+        
+        #otherwise move to the next node in the row.
+        else:
+            goal_node = getNextNodeWithTag(current_row,current_node)
+
         goal = GotoNodeGoal()
-        goal.target = np.random.choice(node_list) #TODO more sensible node order.
+        goal.target = goal_node
         try:
             topological_navigation_client.send_goal(goal)
         except:
@@ -215,7 +295,8 @@ if __name__ == '__main__':
 
     #subscribers
     topological_map_sub = rospy.Subscriber('/topological_map',TopologicalMap,topological_map_callback)
-    weed_targets_sub = rospy.Subscriber('{}/weed_pose_array'.format(robot_name),PoseArray,weed_targets_callback)
+    weed_targets_sub = rospy.Subscriber('/{}/weed_pose_array'.format(robot_name),PoseArray,weed_targets_callback)
+    current_node_sub = rospy.Subscriber('/{}/current_node'.format(robot_name),String,current_node_callback)
 
     #publishers
     state_pub = rospy.Publisher('/{}/state'.format(robot_name),String,queue_size=0)
