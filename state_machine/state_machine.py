@@ -45,8 +45,8 @@ class StateMachine:
             handler = self.handlers[self.startState]
         except:
             raise InitializationError('must call .set_start() before .run()')
-        #if not self.endStates: #TODO decide whether it is important to have an end_state e.g. is it good practice to not ctrl-c out?
-        #    raise  InitializationError('at least one state must be an end_state')
+        if not self.endStates: 
+           raise  InitializationError('at least one state must be an end_state')
 
         r = rospy.Rate(5) #5 hz
         while not rospy.is_shutdown():
@@ -121,19 +121,17 @@ def getTaggedNodes(tag):
     except rospy.ServiceException:
         print('Service call failed: %s' % e)
 
-def getNextNodeWithTag(tag,currentnode):
+def getNextNodeWithTag(tag):
     """
     Checks the edges of currentnode to see which destination nodes have the tag. returns the first
     node found with tag, or None if none of the edges of currentnode have that tag.
     """
-    tagged_nodes = getTaggedNodes(tag)
-
     #look up currentnode in node_list
     for node in node_list:
-        if node.name is currentnode:
+        if node.name == current_node:
             #check if any edges end at a node with tag
             for edge in node.edges:
-                if edge.node in tagged_nodes:
+                if edge.node in tagged_nodes_dict[tag]:
                     #return first tagged node
                     return edge.node
     return None
@@ -160,6 +158,12 @@ def launch(_):
     row_tags = tags
     row_tags.remove('start')
     row_tags.remove('end')
+    #sort row_tags so that row_tags.pop() gives rows in desired order with user-defined topological map
+    row_tags.sort(reversed=True)
+    #remove rows for computer vision specialisation
+    # row_tags.remove('row_4')
+    # row_tags.remove('row_5')
+    
 
     #choose a row to harvest from
     global current_row
@@ -168,6 +172,7 @@ def launch(_):
 
     #set first goal.
     goal_node = list(set(tagged_nodes_dict[current_row]).intersection(tagged_nodes_dict['start']))[0]
+    print('first goal_node is:',goal_node)
     goal = GotoNodeGoal()
     goal.target = goal_node
     try:
@@ -185,25 +190,30 @@ def set_next_goal_node(_):
     """
     #if the topological_navigation goalStatus is at a terminal state send a new goal.
     if topological_navigation_client.goal_status_check(): 
-        #if at the end of a row choose a new row and navigate to the start of it.
+        #if at the end of a row choose a new row and set goal_node to the node with 'start' tag.
+        print('current_node',current_node)
         if current_node in tagged_nodes_dict['end']:
             global current_row
             global row_tags
-            current_row = row_tags.pop()
+            #get the next row from row_tags, or transition to end state if row_tags is empty
+            try:
+                current_row = row_tags.pop()
+            except:
+                return('ENDSTATE',_)
             #TODO this line is a massive hack
             goal_node = list(set(tagged_nodes_dict[current_row]).intersection(tagged_nodes_dict['start']))[0]
-            print('goal_node')
-        
+            
         #otherwise move to the next node in the row.
         else:
-            goal_node = getNextNodeWithTag(current_row,current_node)
+            goal_node = getNextNodeWithTag(current_row)
 
+        print('current_row is:',current_row,'next goal_node is:',goal_node)
         goal = GotoNodeGoal()
         goal.target = goal_node
         try:
             topological_navigation_client.send_goal(goal)
         except:
-            pass
+            pass #TODO this should raise an exception.
     
     #new state selection. 
     newState = 'WAITFORNEXTGOALNODE'
@@ -218,7 +228,7 @@ def wait_for_next_goal_node(_):
     if topological_navigation_client.goal_status_check(): 
         #TODO check if node is on a crop row. if true check for weeds if false move to next node.
         if True:
-            newState = 'DETECTWEEDS'
+            newState = 'SETNEXTGOALNODE' #TODO set this bck to 'DETECTWEEDS'
         else:
             newState = 'SETNEXTGOALNODE'
         print('transistion to state:',newState)
@@ -273,6 +283,12 @@ def spray(_):
     print('transistion to state:',newState)
     return(newState,_)
 
+def endstate(_):
+    """
+    state machine exits before this is called
+    """
+    pass
+
 #setting up the state machine  
 thorvald_StateMachine = StateMachine() 
 thorvald_StateMachine.add_state('LAUNCH',launch)
@@ -282,6 +298,7 @@ thorvald_StateMachine.add_state('DETECTWEEDS',detect_weeds_state)
 thorvald_StateMachine.add_state('SETWEEDGOAL',set_weed_goal)
 thorvald_StateMachine.add_state('WAITFORWEED',wait_for_weed)
 thorvald_StateMachine.add_state('SPRAY',spray)
+thorvald_StateMachine.add_state('ENDSTATE',endstate,end_state=True)
 thorvald_StateMachine.set_start('LAUNCH')
 
 if __name__ == '__main__':

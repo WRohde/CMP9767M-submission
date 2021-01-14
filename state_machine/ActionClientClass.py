@@ -33,6 +33,7 @@ class ActionClientClass:
 
         if self.goalStatus in self.terminal_goal_states:
             is_terminal = True
+            print(self.goalIDs[str(self.goalStatus)]) #TODO remove this print
         else: 
             is_terminal = False
         return is_terminal
