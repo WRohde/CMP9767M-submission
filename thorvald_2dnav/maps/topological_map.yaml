@@ -300,6 +300,56 @@
     yaw_goal_tolerance: 0.1
 - meta:
     map: topological_map
+    node: row_0_2
+    pointset: topological_map
+    published_at: 1970-01-01 00:00:11.215000+00:00
+    tag:
+    - row_0
+    timestamp: 11215000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: row_0_2_to_row_0_3
+      inflation_radius: 0.0
+      map_2d: topological_map
+      node: row_0_3
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: topological_map
+    name: row_0_2
+    pointset: topological_map
+    pose:
+      orientation:
+        w: -0.0157500599187
+        x: -1.42786859732e-07
+        y: 8.94748709073e-08
+        z: 0.999875960113
+      position:
+        x: 3.6
+        y: -3.0
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: topological_map
     node: row_0_3
     pointset: topological_map
     published_at: 1970-01-01 00:00:11.290000+00:00
@@ -710,13 +760,6 @@
     timestamp: 11405000000
   node:
     edges:
-    - action: move_base
-      edge_id: row_0_start row_0_end
-      inflation_radius: 0.0
-      map_2d: cropped
-      node: row_0_end
-      recovery_behaviours_config: ''
-      top_vel: 0.55
     - action: move_base
       edge_id: row_0_start_to_row_0_0
       inflation_radius: 0.0
