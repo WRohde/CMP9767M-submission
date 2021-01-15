@@ -123,12 +123,12 @@ def getTaggedNodes(tag):
 
 def getNextNodeWithTag(tag):
     """
-    Checks the edges of currentnode to see which destination nodes have the tag. returns the first
+    Checks the edges of node to see which destination nodes have the tag. returns the first
     node found with tag, or None if none of the edges of currentnode have that tag.
     """
     #look up currentnode in node_list
     for node in node_list:
-        if node.name == current_node:
+        if node.name == goal_node:
             #check if any edges end at a node with tag
             for edge in node.edges:
                 if edge.node in tagged_nodes_dict[tag]:
@@ -145,8 +145,7 @@ row_tags = None
 current_row = None
 def launch(_):
 
-    #the topological map has tags "start","end", and a tag for each row in the format "row_n"
-    #where n is the row number.
+    #the topological map has tags "start","end", and a tag for each row in the format "row_n".
     tags = getTags()
 
     #initialising tagged_nodes_dict
@@ -159,11 +158,11 @@ def launch(_):
     row_tags = tags
     row_tags.remove('start')
     row_tags.remove('end')
-    #sort row_tags so that row_tags.pop() gives rows in desired order with user-defined topological map
-    row_tags.sort(reverse=True)
     #remove hard rows for computer vision specialisation
     row_tags.remove('row_4')
     row_tags.remove('row_5')
+    #sort row_tags so that row_tags.pop() gives rows in desired order with user-defined topological map
+    row_tags.sort(reverse=True)
 
     #choose a row to harvest from
     global current_row
@@ -192,13 +191,9 @@ def set_next_goal_node(_):
     global goal_node
     #if the topological_navigation goalStatus is at a terminal state send a new goal.
     if topological_navigation_client.goal_status_check(): 
-        
-        #check if the current_node matches with the last goal_node. If not resend the previous goal_node.
-        if current_node != goal_node:
-            pass #goal_node is not updated
-        
+               
         #if at the end of a row choose a new row and set goal_node to the node with 'start' tag.
-        elif current_node in tagged_nodes_dict['end']:
+        if current_node in tagged_nodes_dict['end']:
             global current_row
             global row_tags
             #get the next row from row_tags, or transition to end state if row_tags is empty
