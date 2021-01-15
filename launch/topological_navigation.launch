@@ -3,7 +3,9 @@
     <arg name="tf_prefix" default="$(arg robot_name)/"/>
 
     <!--  topo_nav.launch from uol_cmp9767m_tutorials -->
-    <include file="topo_nav.launch" />
+    <include file="topo_nav.launch" >
+        <arg name="move_base_reconf_service" default="DWAPlannerROS" />
+    </include>
 
     <group ns="$(arg robot_name)">
         <remap from="map" to="/map" />
@@ -22,6 +24,7 @@
             <!-- planner config -->
             <rosparam file="$(find thorvald_2dnav)/config/base_local_planner_params.yaml" command="load"/>
             <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+            <!-- <param name="base_local_planner" value="dwa_local_planner/TrajectoryPlannerROS" /> -->
 
             <!-- costmap config -->
             <rosparam file="$(find thorvald_2dnav)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/> 
