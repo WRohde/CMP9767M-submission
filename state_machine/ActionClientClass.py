@@ -22,8 +22,11 @@ class ActionClientClass:
         self.client = actionlib.SimpleActionClient(name, self.Action)
         self.client.wait_for_server(self.timeout) 
 
-    def send_goal(self,goal):
+    def send_goal(self,goal,wait_for_result=True):
         self.client.send_goal(goal,done_cb=self.goal_done_callback)
+        if wait_for_result:
+            self.client.wait_for_result()
+
 
     def goal_status_check(self):
         """
@@ -33,11 +36,11 @@ class ActionClientClass:
 
         if self.goalStatus in self.terminal_goal_states:
             is_terminal = True
-            print(self.goalIDs[str(self.goalStatus)]) #TODO remove this print
         else: 
             is_terminal = False
         return is_terminal
 
+    
 
     def get_result(self):
         return self.client.get_result()

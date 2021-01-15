@@ -140,6 +140,7 @@ def getNextNodeWithTag(tag):
 #State machine states
 
 tagged_nodes_dict = {}
+goal_node = None
 row_tags = None
 current_row = None
 def launch(_):
@@ -159,11 +160,10 @@ def launch(_):
     row_tags.remove('start')
     row_tags.remove('end')
     #sort row_tags so that row_tags.pop() gives rows in desired order with user-defined topological map
-    row_tags.sort(reversed=True)
-    #remove rows for computer vision specialisation
-    # row_tags.remove('row_4')
-    # row_tags.remove('row_5')
-    
+    row_tags.sort(reverse=True)
+    #remove hard rows for computer vision specialisation
+    row_tags.remove('row_4')
+    row_tags.remove('row_5')
 
     #choose a row to harvest from
     global current_row
@@ -171,6 +171,7 @@ def launch(_):
     print("current_row target is",current_row)
 
     #set first goal.
+    global goal_node
     goal_node = list(set(tagged_nodes_dict[current_row]).intersection(tagged_nodes_dict['start']))[0]
     print('first goal_node is:',goal_node)
     goal = GotoNodeGoal()
@@ -188,11 +189,16 @@ def set_next_goal_node(_):
     """
     In this state the next goal node in the topological map is set for the robot .
     """
+    global goal_node
     #if the topological_navigation goalStatus is at a terminal state send a new goal.
     if topological_navigation_client.goal_status_check(): 
+        
+        #check if the current_node matches with the last goal_node. If not resend the previous goal_node.
+        if current_node != goal_node:
+            pass #goal_node is not updated
+        
         #if at the end of a row choose a new row and set goal_node to the node with 'start' tag.
-        print('current_node',current_node)
-        if current_node in tagged_nodes_dict['end']:
+        elif current_node in tagged_nodes_dict['end']:
             global current_row
             global row_tags
             #get the next row from row_tags, or transition to end state if row_tags is empty
@@ -200,14 +206,14 @@ def set_next_goal_node(_):
                 current_row = row_tags.pop()
             except:
                 return('ENDSTATE',_)
-            #TODO this line is a massive hack
+            #set goal_node to the node with both current_row and 'start' tags TODO this line is an ugly hack
             goal_node = list(set(tagged_nodes_dict[current_row]).intersection(tagged_nodes_dict['start']))[0]
             
-        #otherwise move to the next node in the row.
+        #otherwise set goal_node to the next node in the row.
         else:
             goal_node = getNextNodeWithTag(current_row)
 
-        print('current_row is:',current_row,'next goal_node is:',goal_node)
+        print('current_node is:',current_node,'next goal_node is:',goal_node, 'targeting row:',current_row)
         goal = GotoNodeGoal()
         goal.target = goal_node
         try:
@@ -216,25 +222,10 @@ def set_next_goal_node(_):
             pass #TODO this should raise an exception.
     
     #new state selection. 
-    newState = 'WAITFORNEXTGOALNODE'
+    newState = 'DETECTWEEDS'
     print('transistion to state:',newState)
     return(newState,_)
 
-def wait_for_next_goal_node(_):
-    """
-    In this state the robot travels to the next goal node in the topological map.
-    """
-    #if the topological_navigation goalStatus is at a terminal state transition to DETECTWEEDS
-    if topological_navigation_client.goal_status_check(): 
-        #TODO check if node is on a crop row. if true check for weeds if false move to next node.
-        if True:
-            newState = 'SETNEXTGOALNODE' #TODO set this bck to 'DETECTWEEDS'
-        else:
-            newState = 'SETNEXTGOALNODE'
-        print('transistion to state:',newState)
-    else:
-        newState = 'WAITFORNEXTGOALNODE'
-    return(newState,_)
 
 def detect_weeds_state(_):
     """
@@ -261,20 +252,12 @@ def set_weed_goal(_):
         weed_goal.target_pose = weed_pose
         move_base_action_client.send_goal(weed_goal)
 
-        #stay in spray state unless weed_targets is empty
-        newState = 'WAITFORWEED'
+        #move to spray state unless weed_targets is empty
+        newState = 'SPRAY'
     else:
+        #once weed_targets is empty move to the next node
         newState = 'SETNEXTGOALNODE'
     print('transistion to state:',newState)
-    return(newState,_)
-
-def wait_for_weed(_):
-    #if move_base has arrived at the weed transition to spray.
-    if move_base_action_client.goal_status_check():
-        newState = 'SPRAY'
-        print('transistion to state:',newState)
-    else:
-        newState = 'WAITFORWEED'
     return(newState,_)
 
 def spray(_): 
@@ -283,22 +266,14 @@ def spray(_):
     print('transistion to state:',newState)
     return(newState,_)
 
-def endstate(_):
-    """
-    state machine exits before this is called
-    """
-    pass
-
 #setting up the state machine  
 thorvald_StateMachine = StateMachine() 
 thorvald_StateMachine.add_state('LAUNCH',launch)
 thorvald_StateMachine.add_state('SETNEXTGOALNODE',set_next_goal_node)
-thorvald_StateMachine.add_state('WAITFORNEXTGOALNODE',wait_for_next_goal_node)
 thorvald_StateMachine.add_state('DETECTWEEDS',detect_weeds_state)
 thorvald_StateMachine.add_state('SETWEEDGOAL',set_weed_goal)
-thorvald_StateMachine.add_state('WAITFORWEED',wait_for_weed)
 thorvald_StateMachine.add_state('SPRAY',spray)
-thorvald_StateMachine.add_state('ENDSTATE',endstate,end_state=True)
+thorvald_StateMachine.add_state('ENDSTATE',None,end_state=True)
 thorvald_StateMachine.set_start('LAUNCH')
 
 if __name__ == '__main__':
