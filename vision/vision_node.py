@@ -16,12 +16,6 @@ from geometry_msgs.msg import Pose, PoseStamped, PoseArray
 #ros services
 from std_srvs.srv import Empty
 
-def mask_crop(hsv_image):
-    crop_high = (160,200,200)
-    crop_low = (40,100,1)
-    crop_mask = cv2.inRange(hsv_image, crop_low, crop_high)
-    return crop_mask
-
 def mask_weeds(hsv_image):
     weeds_high = (160,100,200)
     weeds_low = (55,1,1)
@@ -88,7 +82,7 @@ class image_processing:
     camera_model = None
     cv_image = None
     
-    def __init__(self):
+    def __init__(self,robot_name):
         #publishers
         self.image_pub = rospy.Publisher("{}/opencv_image".format(robot_name),Image,queue_size=0)
         self.weed_pose_array_pub = rospy.Publisher("{}/weed_pose_array".format(robot_name),PoseArray,queue_size=0)
@@ -115,26 +109,31 @@ class image_processing:
     def detect_weeds(self,req):
         """
         Detects weeds in the bgr image self.cv_image. Publishes a pose_array of detected weeds in the /map frame to /robot_name/weed_pose_array, 
-        and self.cv_image with magenta circles marking weed targets to /robot_name/opencv_image. 
+        and self.cv_image with magenta circles marking weed targets to /robot_name/opencv_image. NOTE the poses in the pose_array have orientation 
+        1,0,0,0 a more appropriate orientation should be assigned elsewhere if the pose is used for navigation. 
         Colour is used to segment and classify the image, k means clustering is used to reduce the number of targets.   
         """
+
         if self.camera_model is None:
+            print("self.camera_model is None, is camera_info being published?")
             return #TODO add exception or similar to aid debugging this
         if self.cv_image is None:
+            print("self.cv_image is None, is /robot_name/kinect2_camera/hd/image_color_rect publishing?")
             return #TODO add exception or similar to aid debugging this
         
         print("processing image")
-        weed_pixel_coords, crop_pixel_coords = self.process_image_colour_kmeans(self.cv_image)
+        weed_pixel_coords = self.process_image_colour_kmeans(self.cv_image)
         #check if process_image_colour_kmeans detected any weeds.
         if weed_pixel_coords is None:
             print("kmeans clustering failed, insufficient detections")
             return 
         print("image processed")
 
+        print("transforming weed coordinates to map frame")
         #transform pixel coordinates to camera frame
         distance_to_floor = 0.7 #TODO get correct value from tf
         weed_pose_array = PoseArray()
-        weed_pose_array.header.frame_id = '/map'
+        weed_pose_array.header.frame_id = 'map'
         for i,weed_pixel_coord in enumerate(weed_pixel_coords):
             weed_unit_vector = np.array(self.camera_model.projectPixelTo3dRay(weed_pixel_coord))
             
@@ -142,6 +141,8 @@ class image_processing:
             weed_pose = PoseStamped()
             weed_pose.header.frame_id = self.camera_model.tfFrame()
             weed_pose.pose.position.x,weed_pose.pose.position.y,weed_pose.pose.position.z = weed_unit_vector * distance_to_floor
+            #orientation is arbitrarily set to 1,0,0,0 so that the quaternion is valid
+            weed_pose.pose.orientation.x = 1
             
             #transform weed_pose to the map frame
             try: 
@@ -154,11 +155,12 @@ class image_processing:
             weed_pose_array.poses.append(target_pose_WRT_map.pose)
         
         #publish pose_array
+        print("publishing weed pose array")
         self.weed_pose_array_pub.publish(weed_pose_array)
 
         #preparing and publishing image with added weed targets. 
         #image should be rgb for display in rviz.
-        output_image = cv2.cvtColor(cv_image, cv2.COLOR_BGR2RGB)
+        output_image = cv2.cvtColor(self.cv_image, cv2.COLOR_BGR2RGB)
         #plot a circle at each detected weed.
         if weed_pixel_coords is not None:
             for coord in weed_pixel_coords:
@@ -166,10 +168,11 @@ class image_processing:
         #publish output_image 
         try:
             self.image_pub.publish(self.bridge.cv2_to_imgmsg(output_image))
+            print("published opencv_image for visualisations")
         except CvBridgeError as e:
             print(e)
 
-    def process_image_colour_kmeans(self, image, num_weed_targets=10,num_crop_targets=10):
+    def process_image_colour_kmeans(self, image, num_weed_targets=10):
         """
         processes a BGR image of crops and weeds, using colour to segment and classify crops, and kmeans 
         clustering to identify targets.
@@ -177,30 +180,27 @@ class image_processing:
         
         hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
         
-        #crop_result and weed_result are masked to show only crops and only weeds respectively. 
-        #the colour thresholds work well for crops in rows 0 and 1, reasonably well for rows 2 and 3,
-        #and poorly for crops in rows 4 and 5.
-        crop_result = cv2.bitwise_and(image,image,mask=mask_crop(hsv_image))
+        #weed_result is a masked image showing only weeds. the colour threshold works well for crops in rows 0 and 1, 
+        #reasonably well for rows 2 and 3, and poorly for crops in rows 4 and 5.
+        print("applying colour mask")
         weed_result = cv2.bitwise_and(image,image,mask=mask_weeds(hsv_image))
         
         #get the connected_components in the masked_images and filter small components
-        crop_num_labels, crop_labels_im, crop_stats, crop_centroids = connected_components_from_image(crop_result,filter_small_connected_components=True)
+        print("getting connected components")
         weed_num_labels, weed_labels_im, weed_stats, weed_centroids = connected_components_from_image(weed_result,filter_small_connected_components=True)
         
-        #run kmeans clustering on the centroids of crop and weed components.If there are not enough centroids 
-        #passed to kmeans the exception will set coords to None
+        #run kmeans clustering on the centroids of weed components.If there are not enough centroids passed to kmeans the exception will set 
+        # weed_pixel_coords to None
         try:
-            crop_pixel_coords = kmeans_centroids(crop_centroids,num_clusters=min(num_crop_targets,len(crop_centroids)-1))
-        except:
-            crop_pixel_coords = None
-        try:
+            print("running kmeans on weed centroids.")
             weed_pixel_coords = kmeans_centroids(weed_centroids,num_clusters=min(num_weed_targets,len(weed_centroids)-1))
             #verify that weed_pixel_coords has shape (n,2)
             assert weed_pixel_coords.shape[1] == 2
         except:
+            print("kmeans failed, or there were not enough centroids passed to it. returning None")
             weed_pixel_coords = None
         
-        return weed_pixel_coords, crop_pixel_coords
+        return weed_pixel_coords
 
 
 if __name__ == '__main__':
@@ -211,6 +211,6 @@ if __name__ == '__main__':
         robot_name = "thorvald_001"
 
     rospy.init_node('vision_node', anonymous=True)
-    image_processing = image_processing()
+    image_processing = image_processing(robot_name)
     s = rospy.Service('/{}/detect_weeds'.format(robot_name), Empty, image_processing.detect_weeds)
     rospy.spin()

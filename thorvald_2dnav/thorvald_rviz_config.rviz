@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /TF1/Frames1
         - /Topo_Nav1
+        - /Topo_Nav1/topo_map1/Namespaces1
         - /PoseArray1
       Splitter Ratio: 0.43611112236976624
     Tree Height: 227
@@ -450,22 +451,22 @@ Visualization Manager:
           Value: true
         - Class: rviz/InteractiveMarkers
           Enable Transparency: true
-          Enabled: true
+          Enabled: false
           Name: go_to_node
           Show Axes: false
           Show Descriptions: true
           Show Visual Aids: false
           Update Topic: /thorvald_001/go_to_node/update
-          Value: true
+          Value: false
         - Class: rviz/InteractiveMarkers
           Enable Transparency: true
-          Enabled: true
+          Enabled: false
           Name: edge_update
           Show Axes: false
-          Show Descriptions: true
+          Show Descriptions: false
           Show Visual Aids: false
           Update Topic: /topological_map_edges/update
-          Value: true
+          Value: false
       Enabled: true
       Name: Topo_Nav
     - Class: rviz/Image
@@ -536,25 +537,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 11.730649948120117
+      Distance: 9.08421516418457
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 6.657398700714111
-        Y: -0.44965675473213196
-        Z: -1.4418296813964844
+        X: 0.12850140035152435
+        Y: -0.6684222221374512
+        Z: -0.7712063193321228
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.32479676604270935
+      Pitch: 0.7597965598106384
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.5135691165924072
+      Yaw: 4.843571186065674
     Saved: ~
 Window Geometry:
   Displays:
