@@ -89,6 +89,15 @@ def getTaggedNodes(tag):
     except rospy.ServiceException:
         print('Service call failed: %s' % e)
 
+def moveSprayerToWeed():
+    """ moves sprayer to the published weedpose topic with translations"""
+    rospy.wait_for_service('/thorvald_001/moveSprayerToWeed')
+    try:
+        callMoveSprayerToWeed= rospy.ServiceProxy('/thorvald_001/moveSprayerToWeed', Empty)
+        return callMoveSprayerToWeed()
+    except rospy.ServiceException as e:
+        print('moveSprayerToWeed Service call failed:',e)
+
 #--------------------
 # Other functions
 #--------------------
@@ -148,6 +157,9 @@ class launch(smach.State):
         #remove hard rows for computer vision specialisation
         row_tags.remove('row_4')
         row_tags.remove('row_5')
+        row_tags.remove('row_0')
+        row_tags.remove('row_2')
+        row_tags.remove('row_1')
 
         #choose a row to harvest from row_tags
         global current_row
@@ -241,9 +253,18 @@ class set_weed_goal(smach.State):
             weed_pose.pose = weed_targets.poses.pop()
 
             #start moving to weed_pose
-            weed_goal = MoveBaseGoal()
-            weed_goal.target_pose = weed_pose
-            move_base_action_client.send_goal(weed_goal)
+            # weed_goal = MoveBaseGoal()
+            # weed_goal.target_pose = weed_pose
+            # move_base_action_client.send_goal(weed_goal)
+
+            # publish pose
+            weed_pose_pub.publish(weed_pose)
+
+            # testing translating to the weeds
+            try:
+                moveSprayerToWeed()
+            except rospy.ServiceException as e:
+                print('moveSprayerToWeed call failed:',e)
 
             #move to spray state unless weed_targets is empty
             return('SPRAY')
@@ -277,7 +298,7 @@ if __name__ == '__main__':
     current_node_sub = rospy.Subscriber('/{}/current_node'.format(robot_name),String,current_node_callback)
 
     #publishers
-    state_pub = rospy.Publisher('/{}/state'.format(robot_name),String,queue_size=0)
+    weed_pose_pub = rospy.Publisher('/{}/weed_pose'.format(robot_name),PoseStamped,queue_size=0)
 
     #action clients
     move_base_action_client = ActionClientClass('/{}/move_base'.format(robot_name),MoveBaseAction)
