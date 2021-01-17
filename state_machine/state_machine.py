@@ -54,8 +54,8 @@ def callSprayService():
     try:
         callSpray = rospy.ServiceProxy('/thorvald_001/spray', Empty)
         return callSpray()
-    except rospy.ServiceException:
-        print 'Spray Service call failed: %s' % e
+    except rospy.ServiceException as e:
+        print('Spray Service call failed: ',e)
 
 def detect_weeds_service():
     """
@@ -66,8 +66,8 @@ def detect_weeds_service():
     try:
         callDetectWeeds = rospy.ServiceProxy('/thorvald_001/detect_weeds', Empty)
         return callDetectWeeds()
-    except rospy.ServiceException:
-        print 'Service call failed: %s' % e
+    except rospy.ServiceException as e:
+        print('detect weeds Service call failed:',e)
 
 def getTags():
     """
@@ -162,8 +162,8 @@ class launch(smach.State):
         goal.target = goal_node
         try:
             topological_navigation_client.send_goal(goal)
-        except:
-            pass #TODO exception or something.
+        except rospy.ROSException as e:
+            print("failure sending goal to topologication navigation:",e)
 
         return('SETNEXTGOALNODE')
 
@@ -206,8 +206,8 @@ class set_next_goal_node(smach.State):
             goal.target = goal_node
             try:
                 topological_navigation_client.send_goal(goal)
-            except:
-                pass #TODO this should probably raise an exception.
+            except rospy.ROSException as e:
+                print("failure sending goal to topologication navigation:",e)
         
         #return next state
         return('DETECTWEEDS')
@@ -222,8 +222,8 @@ class detect_weeds_state(smach.State):
         rospy.loginfo('Executing state DETECTWEEDS')
         try:
             detect_weeds_service()
-        except:
-            pass #TODO this should probably raise an exception.
+        except rospy.ServiceException as e:
+            print('detect_weeds_service call failed:',e)
         return('SETWEEDGOAL')
 
 # define state SETWEEDGOAL
