@@ -3,6 +3,7 @@
 #python libraries
 import sys
 import numpy as np
+import threading
 
 #ROS libraries
 import rospy,actionlib
@@ -88,6 +89,10 @@ def getTaggedNodes(tag):
     except rospy.ServiceException:
         print('Service call failed: %s' % e)
 
+#--------------------
+# Other functions
+#--------------------
+
 def getNextNodeWithTag(tag):
     """
     Checks the edges of node to see which destination nodes have the tag. returns the first
@@ -103,6 +108,10 @@ def getNextNodeWithTag(tag):
                     return edge.node
     #returns None if no nodes with tag were in the edges of goal_node                     
     return None
+
+def getStartNodeForRow(rowtag):
+    """returns a node tagged with 'start' and rowtag """
+    return list(set(tagged_nodes_dict[rowtag]).intersection(tagged_nodes_dict['start']))[0]
 
 #--------------------
 # State machine states
@@ -139,17 +148,15 @@ class launch(smach.State):
         #remove hard rows for computer vision specialisation
         row_tags.remove('row_4')
         row_tags.remove('row_5')
-        #TODO sort row_tags so that row_tags.pop() gives rows in desired order with user-defined topological map
-        row_tags.sort(reverse=True)
 
         #choose a row to harvest from row_tags
         global current_row
         current_row = row_tags.pop(0)
         print("current_row target is",current_row)
 
-        #set first node to navigate to
+        #set first goal_node for navigation
         global goal_node
-        goal_node = list(set(tagged_nodes_dict[current_row]).intersection(tagged_nodes_dict['start']))[0]
+        goal_node = getStartNodeForRow(current_row)
         print('first goal_node is:',goal_node)
         goal = GotoNodeGoal()
         goal.target = goal_node
@@ -187,8 +194,8 @@ class set_next_goal_node(smach.State):
                 except:
                     return('ENDSTATE')
 
-                #set goal_node to the node with both current_row and 'start' tags TODO turn into a function
-                goal_node = list(set(tagged_nodes_dict[current_row]).intersection(tagged_nodes_dict['start']))[0]
+                #set goal_node to the node with both current_row and 'start' tags.
+                goal_node = getStartNodeForRow(current_row)
                 
             #otherwise set goal_node to the next node in the row.
             else:
@@ -289,5 +296,4 @@ if __name__ == '__main__':
         smach.StateMachine.add('SPRAY',spray(),transitions={'SETWEEDGOAL':'SETWEEDGOAL'})
 
     # Execute SMACH thorvald_sm
-    outcome = thorvald_sm.execute()
-    
+    outcome = thorvald_sm.execute() 
