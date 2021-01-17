@@ -6,6 +6,7 @@ import numpy as np
 
 #ROS libraries
 import rospy,actionlib
+import smach
 
 #ROS messages
 from geometry_msgs.msg import PoseStamped, PoseArray
@@ -21,66 +22,31 @@ from strands_navigation_msgs.srv import GetTags, GetTaggedNodes
 #utils
 from ActionClientClass import ActionClientClass
 
-class StateMachine:
-    """
-    state machine class from the example here: https://www.python-course.eu/finite_state_machine.php
-    Modified to better fit this ROS application
-    """
-    def __init__(self):
-        self.handlers = {}
-        self.startState = None
-        self.endStates = []
-
-    def add_state(self, name, handler, end_state=0):
-        name = name.upper()
-        self.handlers[name] = handler
-        if end_state:
-            self.endStates.append(name)
-
-    def set_start(self, name):
-        self.startState = name.upper()
-
-    def run(self, cargo):
-        try:
-            handler = self.handlers[self.startState]
-        except:
-            raise InitializationError('must call .set_start() before .run()')
-        if not self.endStates: 
-           raise  InitializationError('at least one state must be an end_state')
-
-        r = rospy.Rate(5) #5 hz
-        while not rospy.is_shutdown():
-            (newState, cargo) = handler(cargo)
-            state_pub.publish(newState)
-            if newState.upper() in self.endStates:
-                print('reached ', newState)
-                break 
-            else:
-                handler = self.handlers[newState.upper()]
-            r.sleep()
+#--------------------
+# subscriber callbacks
+#--------------------
 
 weed_targets = PoseArray()
 def weed_targets_callback(data):
-    """
-    updates the weed_targets PoseArray 
-    """
+    """ updates the weed_targets PoseArray """
     global weed_targets
     weed_targets = data
 
 node_list =[]
 def topological_map_callback(data):
-    """
-    updates the node_list with the nodes in the topological map.
-    """
+    """ updates the node_list with the nodes in the topological map."""
     global node_list
     node_list = data.nodes
 
 current_node = ""
 def current_node_callback(data):
+    """updates global variable current_node to match topological map current_node message """
     global current_node
     current_node = data.data
 
+#--------------------
 # service calls
+#--------------------
 
 def callSprayService():
     rospy.wait_for_service('/thorvald_001/spray')
@@ -114,6 +80,7 @@ def getTags():
         print('Service call failed: %s' % e)
 
 def getTaggedNodes(tag):
+    """returns a list of nodes tagged with tag"""
     rospy.wait_for_service('/topological_map_manager/get_tagged_nodes')
     try:
         callGetTaggedNodesService = rospy.ServiceProxy('/topological_map_manager/get_tagged_nodes', GetTaggedNodes)
@@ -126,7 +93,7 @@ def getNextNodeWithTag(tag):
     Checks the edges of node to see which destination nodes have the tag. returns the first
     node found with tag, or None if none of the edges of currentnode have that tag.
     """
-    #look up currentnode in node_list
+    #look up goal_node in node_list
     for node in node_list:
         if node.name == goal_node:
             #check if any edges end at a node with tag
@@ -134,142 +101,159 @@ def getNextNodeWithTag(tag):
                 if edge.node in tagged_nodes_dict[tag]:
                     #return first tagged node
                     return edge.node
+    #returns None if no nodes with tag were in the edges of goal_node                     
     return None
 
+#--------------------
+# State machine states
+#--------------------
 
-#State machine states
-
+#global variables for the state machine
 tagged_nodes_dict = {}
 goal_node = None
 row_tags = None
 current_row = None
-def launch(_):
 
-    #the topological map has tags "start","end", and a tag for each row in the format "row_n".
-    tags = getTags()
+# define state Launch
+class launch(smach.State):
+    def __init__(self):
+        smach.State.__init__(self,outcomes=['SETNEXTGOALNODE'])
 
-    #initialising tagged_nodes_dict
-    global tagged_nodes_dict
-    for tag in tags:
-        tagged_nodes_dict[tag] = getTaggedNodes(tag)
-    
-    #row_tags is used to ensure each row is visited once.
-    global row_tags
-    row_tags = tags
-    row_tags.remove('start')
-    row_tags.remove('end')
-    #remove hard rows for computer vision specialisation
-    row_tags.remove('row_4')
-    row_tags.remove('row_5')
-    #sort row_tags so that row_tags.pop() gives rows in desired order with user-defined topological map
-    row_tags.sort(reverse=True)
+    def execute(self, userdata):
+        rospy.loginfo('executing state LAUNCH')
 
-    #choose a row to harvest from
-    global current_row
-    current_row = row_tags.pop()
-    print("current_row target is",current_row)
+        # get topological map tags.
+        # the map has tags "start","end", and a tag for each row in the format "row_n".
+        tags = getTags()
 
-    #set first goal.
-    global goal_node
-    goal_node = list(set(tagged_nodes_dict[current_row]).intersection(tagged_nodes_dict['start']))[0]
-    print('first goal_node is:',goal_node)
-    goal = GotoNodeGoal()
-    goal.target = goal_node
-    try:
-        topological_navigation_client.send_goal(goal)
-    except:
-        pass
+        #initialising tagged_nodes_dict
+        global tagged_nodes_dict
+        for tag in tags:
+            tagged_nodes_dict[tag] = getTaggedNodes(tag)
+        
+        #row_tags is used to ensure each row is visited once.
+        global row_tags
+        row_tags = tags
+        row_tags.remove('start')
+        row_tags.remove('end')
+        #remove hard rows for computer vision specialisation
+        row_tags.remove('row_4')
+        row_tags.remove('row_5')
+        #TODO sort row_tags so that row_tags.pop() gives rows in desired order with user-defined topological map
+        row_tags.sort(reverse=True)
 
-    newState = 'SETNEXTGOALNODE'
-    print('transistion to state:',newState)
-    return(newState,_)
+        #choose a row to harvest from row_tags
+        global current_row
+        current_row = row_tags.pop(0)
+        print("current_row target is",current_row)
 
-def set_next_goal_node(_):
-    """
-    In this state the next goal node in the topological map is set for the robot .
-    """
-    global goal_node
-    #if the topological_navigation goalStatus is at a terminal state send a new goal.
-    if topological_navigation_client.goal_status_check(): 
-               
-        #if at the end of a row choose a new row and set goal_node to the node with 'start' tag.
-        if current_node in tagged_nodes_dict['end']:
-            global current_row
-            global row_tags
-            #get the next row from row_tags, or transition to end state if row_tags is empty
-            try:
-                current_row = row_tags.pop()
-            except:
-                return('ENDSTATE',_)
-            #set goal_node to the node with both current_row and 'start' tags TODO this line is an ugly hack
-            goal_node = list(set(tagged_nodes_dict[current_row]).intersection(tagged_nodes_dict['start']))[0]
-            
-        #otherwise set goal_node to the next node in the row.
-        else:
-            goal_node = getNextNodeWithTag(current_row)
-
-        print('current_node is:',current_node,'next goal_node is:',goal_node, 'targeting row:',current_row)
+        #set first node to navigate to
+        global goal_node
+        goal_node = list(set(tagged_nodes_dict[current_row]).intersection(tagged_nodes_dict['start']))[0]
+        print('first goal_node is:',goal_node)
         goal = GotoNodeGoal()
         goal.target = goal_node
         try:
             topological_navigation_client.send_goal(goal)
         except:
-            pass #TODO this should raise an exception.
+            pass #TODO exception or something.
+
+        return('SETNEXTGOALNODE')
+
+# define state SETNEXTGOALNODE
+class set_next_goal_node(smach.State):
+    """
+    In this state the next goal node in the topological map is set for the robot .
+    """
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['DETECTWEEDS','ENDSTATE'])
     
-    #new state selection. 
-    newState = 'DETECTWEEDS'
-    print('transistion to state:',newState)
-    return(newState,_)
+    def execute(self, userdata):
+        rospy.loginfo('executing state SETNEXTGOALNODE')
 
+        global goal_node
+        global current_row
+        global row_tags
 
-def detect_weeds_state(_):
-    """
-    calls the detect_weeds_service
-    """
-    try:
-        detect_weeds_service()
-    except:
-        pass
-    newState = 'SETWEEDGOAL'
-    print('transistion to state:',newState)
-    return(newState,_)
+        #if the topological_navigation goalStatus is at a terminal state send a new goal.
+        if topological_navigation_client.goal_status_check(): 
+                
+            #if at the end of a row choose a new row and set goal_node to the node with 'start' tag.
+            if current_node in tagged_nodes_dict['end']:
+                
+                #get the next row from row_tags, or transition to end state if row_tags is empty
+                try:
+                    current_row = row_tags.pop(0)
+                except:
+                    return('ENDSTATE')
 
-def set_weed_goal(_):
-    #get next weed_target 
-    global weed_targets
-    if len(weed_targets.poses) > 0:
-        weed_pose = PoseStamped()
-        weed_pose.header.frame_id = weed_targets.header.frame_id
-        weed_pose.pose = weed_targets.poses.pop()
+                #set goal_node to the node with both current_row and 'start' tags TODO turn into a function
+                goal_node = list(set(tagged_nodes_dict[current_row]).intersection(tagged_nodes_dict['start']))[0]
+                
+            #otherwise set goal_node to the next node in the row.
+            else:
+                goal_node = getNextNodeWithTag(current_row)
 
-        #start moving to weed_pose
-        weed_goal = MoveBaseGoal()
-        weed_goal.target_pose = weed_pose
-        move_base_action_client.send_goal(weed_goal)
+            print('current_node is:',current_node,'next goal_node is:',goal_node,'targeting row:',current_row)
+            goal = GotoNodeGoal()
+            goal.target = goal_node
+            try:
+                topological_navigation_client.send_goal(goal)
+            except:
+                pass #TODO this should probably raise an exception.
+        
+        #return next state
+        return('DETECTWEEDS')
 
-        #move to spray state unless weed_targets is empty
-        newState = 'SPRAY'
-    else:
-        #once weed_targets is empty move to the next node
-        newState = 'SETNEXTGOALNODE'
-    print('transistion to state:',newState)
-    return(newState,_)
+# define state DETECTWEEDS
+class detect_weeds_state(smach.State):
+    """ calls the detect_weeds_service """
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['SETWEEDGOAL'])
 
-def spray(_): 
-    callSprayService()
-    newState = 'SETWEEDGOAL'
-    print('transistion to state:',newState)
-    return(newState,_)
+    def execute(self, userdata):
+        rospy.loginfo('Executing state DETECTWEEDS')
+        try:
+            detect_weeds_service()
+        except:
+            pass #TODO this should probably raise an exception.
+        return('SETWEEDGOAL')
 
-#setting up the state machine  
-thorvald_StateMachine = StateMachine() 
-thorvald_StateMachine.add_state('LAUNCH',launch)
-thorvald_StateMachine.add_state('SETNEXTGOALNODE',set_next_goal_node)
-thorvald_StateMachine.add_state('DETECTWEEDS',detect_weeds_state)
-thorvald_StateMachine.add_state('SETWEEDGOAL',set_weed_goal)
-thorvald_StateMachine.add_state('SPRAY',spray)
-thorvald_StateMachine.add_state('ENDSTATE',None,end_state=True)
-thorvald_StateMachine.set_start('LAUNCH')
+# define state SETWEEDGOAL
+class set_weed_goal(smach.State):
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['SPRAY','SETNEXTGOALNODE'])
+
+    def execute(self, userdata):
+        rospy.loginfo('Executing state SETWEEDGOAL')
+        #get next weed_target 
+        global weed_targets
+        if len(weed_targets.poses) > 0:
+            weed_pose = PoseStamped()
+            weed_pose.header.frame_id = weed_targets.header.frame_id
+            weed_pose.pose = weed_targets.poses.pop()
+
+            #start moving to weed_pose
+            weed_goal = MoveBaseGoal()
+            weed_goal.target_pose = weed_pose
+            move_base_action_client.send_goal(weed_goal)
+
+            #move to spray state unless weed_targets is empty
+            return('SPRAY')
+        else:
+            #once weed_targets is empty move to the next node
+            return('SETNEXTGOALNODE')
+
+# define state SPRAY        
+class spray(smach.State): 
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['SETWEEDGOAL'])
+    
+    def execute(self,userdata):
+        rospy.loginfo('Executing state SPRAY')
+        callSprayService()
+        return('SETWEEDGOAL')
+
 
 if __name__ == '__main__':
     if(len(sys.argv)>1):
@@ -292,6 +276,18 @@ if __name__ == '__main__':
     move_base_action_client = ActionClientClass('/{}/move_base'.format(robot_name),MoveBaseAction)
     topological_navigation_client = ActionClientClass('/thorvald_001/topological_navigation',GotoNodeAction)
 
-    #start state machine
-    thorvald_StateMachine.run('')
+    # Create a SMACH state machine thorvald_sm
+    thorvald_sm = smach.StateMachine(outcomes=['ENDSTATE'])
+
+    # Open the state machine container
+    with thorvald_sm:
+        #add state to the state machine container 
+        smach.StateMachine.add('LAUNCH',launch(),transitions={'SETNEXTGOALNODE':'SETNEXTGOALNODE'})
+        smach.StateMachine.add('SETNEXTGOALNODE',set_next_goal_node(),transitions={'DETECTWEEDS':'DETECTWEEDS','ENDSTATE':'ENDSTATE'})
+        smach.StateMachine.add('DETECTWEEDS',detect_weeds_state(),transitions={'SETWEEDGOAL':'SETWEEDGOAL'})
+        smach.StateMachine.add('SETWEEDGOAL',set_weed_goal(),transitions={'SPRAY':'SPRAY','SETNEXTGOALNODE':'SETNEXTGOALNODE'})
+        smach.StateMachine.add('SPRAY',spray(),transitions={'SETWEEDGOAL':'SETWEEDGOAL'})
+
+    # Execute SMACH thorvald_sm
+    outcome = thorvald_sm.execute()
     
