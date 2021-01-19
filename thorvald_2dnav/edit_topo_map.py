@@ -28,11 +28,16 @@ def addToTopoMap(name,pose):
     except rospy.ServiceException:
         print('Service call failed: %s' % e)
 
-def createTopoMapEdge(node1,node2,edge_id):
+def createTopoMapEdge(node1,node2,edge_id,bidirectional=False):
     rospy.wait_for_service('/topological_map_manager/add_edges_between_nodes')
     try:
         callCreateTopoEdgeService = rospy.ServiceProxy('/topological_map_manager/add_edges_between_nodes', AddEdge)
-        return callCreateTopoEdgeService(node1,node2,'move_base',edge_id)
+        if bidirectional:
+            callCreateTopoEdgeService(node1,node2,'move_base',edge_id)
+            callCreateTopoEdgeService(node2,node1,'move_base',edge_id+"_reverse")
+            return
+        else:
+            return callCreateTopoEdgeService(node1,node2,'move_base',edge_id)
     except rospy.ServiceException:
         print('Service call failed: %s' % e)
 
