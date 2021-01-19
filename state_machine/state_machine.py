@@ -60,7 +60,7 @@ def callSprayService():
 def detect_weeds_service():
     """
     calls image_processing.detect_weeds method from vision_node.py. 
-    Publishes a PoseArray of weed_targets in the /map frame to /robot_name/weed_pose_array  
+    A PoseArray of weed_targets will be published in the /map frame to /robot_name/weed_pose_array  
     """
     rospy.wait_for_service('/thorvald_001/detect_weeds')
     try:
@@ -88,6 +88,15 @@ def getTaggedNodes(tag):
         return callGetTaggedNodesService(tag).nodes
     except rospy.ServiceException:
         print('Service call failed: %s' % e)
+
+def moveSprayerToWeed():
+    """ moves sprayer to the published weedpose topic with translations"""
+    rospy.wait_for_service('/thorvald_001/moveSprayerToWeed')
+    try:
+        callMoveSprayerToWeed= rospy.ServiceProxy('/thorvald_001/moveSprayerToWeed', Empty)
+        return callMoveSprayerToWeed()
+    except rospy.ServiceException as e:
+        print('moveSprayerToWeed Service call failed:',e)
 
 #--------------------
 # Other functions
@@ -169,9 +178,8 @@ class launch(smach.State):
 
 # define state SETNEXTGOALNODE
 class set_next_goal_node(smach.State):
-    """
-    In this state the next goal node in the topological map is set for the robot .
-    """
+    """ In this state the next goal node in the topological map is set for the robot."""
+
     def __init__(self):
         smach.State.__init__(self, outcomes=['DETECTWEEDS','ENDSTATE'])
     
@@ -202,6 +210,8 @@ class set_next_goal_node(smach.State):
                 goal_node = getNextNodeWithTag(current_row)
 
             print('current_node is:',current_node,'next goal_node is:',goal_node,'targeting row:',current_row)
+            
+            #send topological navigation goal
             goal = GotoNodeGoal()
             goal.target = goal_node
             try:
@@ -228,6 +238,7 @@ class detect_weeds_state(smach.State):
 
 # define state SETWEEDGOAL
 class set_weed_goal(smach.State):
+    """ Assigns one weed pose detected in DETECTWEEDS as a goal and moves the sprayer to it. """
     def __init__(self):
         smach.State.__init__(self, outcomes=['SPRAY','SETNEXTGOALNODE'])
 
@@ -240,10 +251,14 @@ class set_weed_goal(smach.State):
             weed_pose.header.frame_id = weed_targets.header.frame_id
             weed_pose.pose = weed_targets.poses.pop()
 
-            #start moving to weed_pose
-            weed_goal = MoveBaseGoal()
-            weed_goal.target_pose = weed_pose
-            move_base_action_client.send_goal(weed_goal)
+            # publish pose
+            weed_pose_pub.publish(weed_pose)
+
+            # move to published weed_pose
+            try:
+                moveSprayerToWeed()
+            except rospy.ServiceException as e:
+                print('moveSprayerToWeed call failed:',e)
 
             #move to spray state unless weed_targets is empty
             return('SPRAY')
@@ -253,6 +268,7 @@ class set_weed_goal(smach.State):
 
 # define state SPRAY        
 class spray(smach.State): 
+    """calls the spray service"""
     def __init__(self):
         smach.State.__init__(self, outcomes=['SETWEEDGOAL'])
     
@@ -277,7 +293,7 @@ if __name__ == '__main__':
     current_node_sub = rospy.Subscriber('/{}/current_node'.format(robot_name),String,current_node_callback)
 
     #publishers
-    state_pub = rospy.Publisher('/{}/state'.format(robot_name),String,queue_size=0)
+    weed_pose_pub = rospy.Publisher('/{}/weed_pose'.format(robot_name),PoseStamped,queue_size=0)
 
     #action clients
     move_base_action_client = ActionClientClass('/{}/move_base'.format(robot_name),MoveBaseAction)
