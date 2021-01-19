@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-
 #python libraries
 import sys
 import numpy as np
@@ -11,6 +10,7 @@ import rospy
 
 #ROS messages
 from nav_msgs.msg import OccupancyGrid
+from geometry_msgs.msg import Pose,PoseArray
 
 #ros services
 from nav_msgs.srv import GetMap
@@ -67,6 +67,7 @@ def SpectralClusterMap(worldmap_array,numclusters):
 
     return cluster_centres
 
+
 def collision_check(coord1,coord2,worldmap_array,draw=False):
     """ checks for a collision in the straight line edge between coord1 and coord2 """
     rr,cc = skimage.draw.line(coord1[0],coord1[1],coord2[0],coord2[1])
@@ -78,8 +79,12 @@ def collision_check(coord1,coord2,worldmap_array,draw=False):
         return True
 
 def generate_graph(cluster_centres,worldmap_array):
-    #Minimum spanning tree is used to optimise the edges of the graph
-    #https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.minimum_spanning_tree.html
+    """
+    takes args cluster_centres and worldmap_array. Returns nodes as a dict and edges are list of paired node 
+    keys. Nodes are in occupancy grid coordinates.
+    Minimum spanning tree is used to optimise the edges of the graph
+    https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.minimum_spanning_tree.html
+    """
 
     # euclidean_array is an i,j matrix where the value of an element is the euclidean distance between
     # cluster_centres[i] and cluster_centres[j]. This is in the format used by scipy for a graph 
@@ -111,9 +116,35 @@ def generate_graph(cluster_centres,worldmap_array):
     
     return nodes,edges
 
-#get worldmap as np array
-worldmap = getMapFromMapServer()
-worldmap_array = np.array(worldmap.map.data).reshape(worldmap.map.info.height,worldmap.map.info.width)
+def nodeMapCoordsToPose(nodes,map_info):
+    """ converts a dict of nodes with vals in the 2d occupancy grid to a dict of nodes with poses. """
+    output_dict = {}
+    for name,coords in nodes.items():
+        node_pose = Pose()
+        node_pose.position.x = coords[0]*map_info.resolution + map_info.origin.position.x
+        node_pose.position.y = coords[1]*map_info.resolution + map_info.origin.position.y
+        node_pose.orientation.x = map_info.origin.orientation.x
+        node_pose.orientation.y = map_info.origin.orientation.y
+        node_pose.orientation.z = map_info.origin.orientation.z
+        node_pose.orientation.w = map_info.origin.orientation.w
+        output_dict[name] = node_pose
+    return output_dict
 
-cluster_centres = SpectralClusterMap(worldmap_array,10)
-nodes,edges = generate_graph(cluster_centres,worldmap_array)
+if __name__ == '__main__':
+    #init_node
+    rospy.init_node('generate_topo_map',anonymous=True)
+    print('node initialised')
+
+    #get worldmap as np array
+    print('requesting map')
+    worldmap = getMapFromMapServer()
+    print('got map')
+    worldmap_array = np.array(worldmap.map.data).reshape(worldmap.map.info.height,worldmap.map.info.width)
+
+    #generate nodes
+    print('generating nodes')
+    cluster_centres = SpectralClusterMap(worldmap_array,10)
+    pixel_nodes,edges = generate_graph(cluster_centres,worldmap_array)
+    nodes = nodeMapCoordsToPose(pixel_nodes,worldmap.map.info)
+    print('nodes generated')
+    print(nodes)
