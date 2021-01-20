@@ -15,9 +15,9 @@
     </include>
    
     <!-- custom nodes -->
-    <!-- <node pkg="vision" type="vision_node.py" name="vision_node" args="thorvald_001" output="screen"/> -->
-    <!-- <node pkg="state_machine" type="state_machine.py" name="state_machine" args="thorvald_001" output="screen"/> -->
-    <!-- <node pkg="thorvald_2dnav" type="translation_move.py" name="translation_move_node" args="thorvald_001" output="screen"/> -->
+    <node pkg="vision" type="vision_node.py" name="vision_node" args="thorvald_001" output="screen"/>
+    <node pkg="state_machine" type="state_machine.py" name="state_machine" args="thorvald_001" output="screen"/>
+    <node pkg="thorvald_2dnav" type="translation_move.py" name="translation_move_node" args="thorvald_001" output="screen"/>
 
     <!-- rviz -->
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find thorvald_2dnav)/thorvald_rviz_config.rviz" />
