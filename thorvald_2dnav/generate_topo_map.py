@@ -209,8 +209,9 @@ if __name__ == '__main__':
         createTopoMapEdge(edge[0],edge[1], edge[0] + '_to_' + edge[1], bidirectional=True)
 
     print('adding tags to nodes')
+    print(type(nodes.keys()))
     addTagToNode('crops',crop_nodes.keys())
     #arbitrarily set a node to start node
-    addTagToNode('start',crop_nodes.keys()[0])
+    addTagToNode('start',[crop_nodes.keys()[0]])
 
     print('done')

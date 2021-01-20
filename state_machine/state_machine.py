@@ -77,8 +77,8 @@ def getTags():
     try:
         callGetTagsService = rospy.ServiceProxy('/topological_map_manager/get_tags', GetTags)
         return callGetTagsService().tags
-    except rospy.ServiceException:
-        print('Service call failed: %s' % e)
+    except rospy.ServiceException as e:
+        print('getTags Service call failed:', e)
 
 def getTaggedNodes(tag):
     """returns a list of nodes tagged with tag"""
@@ -86,8 +86,8 @@ def getTaggedNodes(tag):
     try:
         callGetTaggedNodesService = rospy.ServiceProxy('/topological_map_manager/get_tagged_nodes', GetTaggedNodes)
         return callGetTaggedNodesService(tag).nodes
-    except rospy.ServiceException:
-        print('Service call failed: %s' % e)
+    except rospy.ServiceException as e:
+        print('getTaggedNodes service call failed: ',e)
 
 def moveSprayerToWeed():
     """ moves sprayer to the published weedpose topic with translations"""
@@ -104,19 +104,19 @@ def moveSprayerToWeed():
 
 def getNextNodeWithTag(tag):
     """
-    Checks the edges of node to see which destination nodes have the tag. returns the first
-    node found with tag, or None if none of the edges of currentnode have that tag.
+    Checks the edges of node to see which destination nodes in the row haven't been visited. Returns the 
+    first unvisited node from the edges , or a random unvisited node.
     """
     #look up goal_node in node_list
     for node in node_list:
         if node.name == goal_node:
-            #check if any edges end at a node with tag
+            #check if any edges end at an unvisited node in the row.
             for edge in node.edges:
-                if edge.node in tagged_nodes_dict[tag]:
-                    #return first tagged node
+                if edge.node in current_row_unvisited_nodes:
+                    #return first unvisited node in row
                     return edge.node
-    #returns None if no nodes with tag were in the edges of goal_node                     
-    return None
+                else:
+                    return np.random.choice(current_row_unvisited_nodes)
 
 def getStartNodeForRow(rowtag):
     """returns a node tagged with 'start' and rowtag """
@@ -131,6 +131,7 @@ tagged_nodes_dict = {}
 goal_node = None
 row_tags = None
 current_row = None
+current_row_unvisited_nodes = None
 
 # define state Launch
 class launch(smach.State):
@@ -140,8 +141,8 @@ class launch(smach.State):
     def execute(self, userdata):
         rospy.loginfo('executing state LAUNCH')
 
-        # get topological map tags.
-        # the map has tags "start","end", and a tag for each row in the format "row_n".
+        # get topological map tags. These are used to choose which node to move to.
+        # the map must have tag "start", and a tag for each row in the format "row_n".
         tags = getTags()
 
         #initialising tagged_nodes_dict
@@ -152,15 +153,29 @@ class launch(smach.State):
         #row_tags is used to ensure each row is visited once.
         global row_tags
         row_tags = tags
-        row_tags.remove('start')
-        row_tags.remove('end')
+        #remove tags that shouldn't be included in row_tags
+        try: row_tags.remove('start') 
+        except: pass
+        try: row_tags.remove('end') 
+        except: pass
+        #origin is used for the single node in the empty_map.yaml it should be ignored.
+        try: row_tags.remove('origin') 
+        except: pass
+
         #remove hard rows for computer vision specialisation
-        row_tags.remove('row_4')
-        row_tags.remove('row_5')
+        try:
+            row_tags.remove('row_4')
+            row_tags.remove('row_5')
+            row_tags.remove('row_2')
+            row_tags.remove('row_1')
+            row_tags.remove('row_0')
+        except: pass
 
         #choose a row to harvest from row_tags
         global current_row
+        global current_row_unvisited_nodes
         current_row = row_tags.pop(0)
+        current_row_unvisited_nodes = getTaggedNodes(current_row)
         print("current_row target is",current_row)
 
         #set first goal_node for navigation
@@ -169,8 +184,11 @@ class launch(smach.State):
         print('first goal_node is:',goal_node)
         goal = GotoNodeGoal()
         goal.target = goal_node
+
         try:
             topological_navigation_client.send_goal(goal)
+            # remove goal_node from unvisited nodes
+            current_row_unvisited_nodes.remove(goal_node)
         except rospy.ROSException as e:
             print("failure sending goal to topologication navigation:",e)
 
@@ -188,13 +206,14 @@ class set_next_goal_node(smach.State):
 
         global goal_node
         global current_row
+        global current_row_unvisited_nodes
         global row_tags
 
         #if the topological_navigation goalStatus is at a terminal state send a new goal.
         if topological_navigation_client.goal_status_check(): 
                 
-            #if at the end of a row choose a new row and set goal_node to the node with 'start' tag.
-            if current_node in tagged_nodes_dict['end']:
+            #if all the nodes in the current row have been visited choose a new row.
+            if len(current_row_unvisited_nodes) == 0:
                 
                 #get the next row from row_tags, or transition to end state if row_tags is empty
                 try:
@@ -208,7 +227,7 @@ class set_next_goal_node(smach.State):
             #otherwise set goal_node to the next node in the row.
             else:
                 goal_node = getNextNodeWithTag(current_row)
-
+                
             print('current_node is:',current_node,'next goal_node is:',goal_node,'targeting row:',current_row)
             
             #send topological navigation goal
@@ -216,9 +235,11 @@ class set_next_goal_node(smach.State):
             goal.target = goal_node
             try:
                 topological_navigation_client.send_goal(goal)
+                # remove goal_node from unvisited nodes
+                current_row_unvisited_nodes.remove(goal_node)
             except rospy.ROSException as e:
                 print("failure sending goal to topologication navigation:",e)
-        
+
         #return next state
         return('DETECTWEEDS')
 
