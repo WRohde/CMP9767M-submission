@@ -4,6 +4,7 @@
     pointset: generated
     published_at: 1970-01-01 00:00:11.205000+00:00
     tag:
+    - origin
     timestamp: 11205000000
   node:
     localise_by_topic: ''
