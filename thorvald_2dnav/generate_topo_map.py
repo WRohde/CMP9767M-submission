@@ -23,7 +23,7 @@ from scipy.sparse import csr_matrix
 from scipy.spatial import distance
 
 #utils
-from edit_topo_map import addToTopoMap,createTopoMapEdge
+from edit_topo_map import addToTopoMap,createTopoMapEdge,addTagToNode
 
 #--------------------
 # Service calls
@@ -115,15 +115,17 @@ def generate_graph(cluster_centres,worldmap_array,aspect_ratio=[1,1]):
 
     #assign nodes and edges
     nodes = {}
+    node_names = []
     name="node_"
     for i,node in enumerate(cluster_centres):
         nodes[name + str(i)] = node
+        node_names.append(name + str(i))
 
     edges = []
     for i,row in enumerate(min_span_tree_array):
-        row_node = nodes.keys()[i]
+        row_node = node_names[i]
         for j,col in enumerate(row):
-            col_node = nodes.keys()[j]
+            col_node = node_names[j]
             if col > 0:
                 if not (collision_check(cluster_centres[i],cluster_centres[j],worldmap_array)):
                     edges.append([row_node,col_node])
@@ -205,5 +207,11 @@ if __name__ == '__main__':
     print('adding edges to topological map')
     for edge in crop_edges:
         createTopoMapEdge(edge[0],edge[1], edge[0] + '_to_' + edge[1], bidirectional=True)
-    
-    
+
+    print('adding tags to nodes')
+    addTagToNode('crops',crop_nodes.keys())
+    #arbitrarily set a node to start node
+    addTagToNode('start',crop_nodes.keys()[0])
+
+    print('done')
+    rospy.shutdown()
