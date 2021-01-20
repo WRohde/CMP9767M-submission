@@ -174,9 +174,8 @@ def main():
     pose_sub = rospy.Subscriber('/thorvald_001/robot_pose',Pose,pose_callback)
     topological_map_sub = rospy.Subscriber('/topological_map',TopologicalMap,topological_map_callback)
 
-    #rospy.spin()
-
-
 if __name__ == '__main__':
     main()
+    rospy.spin()
+
 

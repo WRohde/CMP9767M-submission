@@ -22,6 +22,9 @@ from scipy.sparse.csgraph import minimum_spanning_tree
 from scipy.sparse import csr_matrix
 from scipy.spatial import distance
 
+#utils
+from edit_topo_map import addToTopoMap,createTopoMapEdge
+
 #--------------------
 # Service calls
 #--------------------
@@ -197,6 +200,10 @@ if __name__ == '__main__':
     
     print('adding nodes to topological map')
     for node,pose in crop_nodes.items():
-        pass
+        addToTopoMap(node,pose)
 
+    print('adding edges to topological map')
+    for edge in crop_edges:
+        createTopoMapEdge(edge[0],edge[1], edge[0] + '_to_' + edge[1], bidirectional=True)
+    
     
