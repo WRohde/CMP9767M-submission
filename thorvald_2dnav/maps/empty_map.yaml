@@ -1,0 +1,30 @@
+- meta:
+    map: generated
+    node: origin
+    pointset: generated
+    published_at: 1970-01-01 00:00:11.205000+00:00
+    tag:
+    timestamp: 11205000000
+  node:
+    localise_by_topic: ''
+    map: generated
+    name: origin
+    pointset: generated
+    pose:
+      orientation:
+        w: -0.0157500599187
+        x: -1.42786859732e-07
+        y: 8.94748709073e-08
+        z: 0.999875960113
+      position:
+        x: 0
+        y: 0
+        z: 0.0
+    verts:
+    - x: 0.2
+      y: 0.2
+    - x: -0.2
+      y: -0.2
+
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
