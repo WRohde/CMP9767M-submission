@@ -214,4 +214,3 @@ if __name__ == '__main__':
     addTagToNode('start',crop_nodes.keys()[0])
 
     print('done')
-    rospy.shutdown()
