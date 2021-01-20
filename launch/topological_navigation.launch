@@ -1,10 +1,12 @@
 <launch>
     <arg name="robot_name" default="thorvald_001"/>
     <arg name="tf_prefix" default="$(arg robot_name)/"/>
+    <arg name="tmap" default="topological_map" />
 
     <!--  topo_nav.launch from uol_cmp9767m_tutorials -->
     <include file="topo_nav.launch" >
         <arg name="move_base_reconf_service" default="DWAPlannerROS" />
+        <arg name="tmap" value="$(arg tmap)" />
     </include>
 
     <group ns="$(arg robot_name)">
