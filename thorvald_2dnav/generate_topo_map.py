@@ -15,12 +15,16 @@ from geometry_msgs.msg import Pose,PoseArray
 #ros services
 from nav_msgs.srv import GetMap
 
-#scipy libraries
-from sklearn.cluster import SpectralClustering
+#other libraries
+from sklearn.cluster import SpectralClustering, KMeans
 import skimage.draw 
 from scipy.sparse.csgraph import minimum_spanning_tree
 from scipy.sparse import csr_matrix
 from scipy.spatial import distance
+
+#--------------------
+# Service calls
+#--------------------
 
 def getMapFromMapServer():
     rospy.wait_for_service('/static_map')
@@ -30,6 +34,9 @@ def getMapFromMapServer():
     except rospy.ServiceException:
         print('Service call failed: %s' % e)
 
+#--------------------
+# functions for graph generation
+#--------------------
 
 def SpectralClusterMap(worldmap_array,numclusters):
     """ 
@@ -67,18 +74,21 @@ def SpectralClusterMap(worldmap_array,numclusters):
 
     return cluster_centres
 
+def cluster_crops(crop_coords,n_clusters=48):
+    """applies kmeans clustering to crops"""
+    kmeans = KMeans(n_clusters=n_clusters, random_state=0).fit(crop_coords)
 
-def collision_check(coord1,coord2,worldmap_array,draw=False):
+    return kmeans.cluster_centers_.astype(int)
+
+def collision_check(coord1,coord2,worldmap_array):
     """ checks for a collision in the straight line edge between coord1 and coord2 """
     rr,cc = skimage.draw.line(coord1[0],coord1[1],coord2[0],coord2[1])
     if all(worldmap_array[rr,cc] != 100):
-        if draw:
-            worldmap_array[rr,cc] = 30
         return False
     else:
         return True
 
-def generate_graph(cluster_centres,worldmap_array):
+def generate_graph(cluster_centres,worldmap_array,aspect_ratio=[1,1]):
     """
     takes args cluster_centres and worldmap_array. Returns nodes as a dict and edges are list of paired node 
     keys. Nodes are in occupancy grid coordinates.
@@ -86,22 +96,23 @@ def generate_graph(cluster_centres,worldmap_array):
     https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csgraph.minimum_spanning_tree.html
     """
 
-    # euclidean_array is an i,j matrix where the value of an element is the euclidean distance between
-    # cluster_centres[i] and cluster_centres[j]. This is in the format used by scipy for a graph 
-    euclidean_array = distance.cdist(cluster_centres, cluster_centres, 'euclidean')
+    # weights_array is an i,j matrix where the value of an element is the euclidean distance between
+    # cluster_centres[i]*aspect_ratio and cluster_centres[j]*aspect_ratio. 
+    # This is in the format used by scipy for a graph.  
+    weights_array = distance.cdist(cluster_centres*aspect_ratio, cluster_centres*aspect_ratio, 'euclidean')
 
-    #check for collisions in euclidean_array:
-    for i,row in enumerate(euclidean_array):
+    #check for collisions in weights_array:
+    for i,row in enumerate(weights_array):
         for j,col in enumerate(row):
             if (collision_check(cluster_centres[i],cluster_centres[j],worldmap_array)):
-                euclidean_array[i][j] = 0
+                weights_array[i][j] = 0
 
     # with collisions removed the minimum_spanning_tree algorithm can be used to optimise the graph.
-    min_span_tree_array = minimum_spanning_tree(csr_matrix(euclidean_array)).toarray().astype(int)
+    min_span_tree_array = minimum_spanning_tree(csr_matrix(weights_array)).toarray().astype(int)
 
     #assign nodes and edges
     nodes = {}
-    name="world_node_"
+    name="node_"
     for i,node in enumerate(cluster_centres):
         nodes[name + str(i)] = node
 
@@ -115,6 +126,30 @@ def generate_graph(cluster_centres,worldmap_array):
                     edges.append([row_node,col_node])
     
     return nodes,edges
+
+#--------------------
+# other functions
+#--------------------
+
+def fake_crops(num_per_row=20):
+    """ returns a fake sample of coordinates in the crop row regions for testing """
+
+    row_0 = np.random.uniform((-5,-2.7),(5,-3.3),size=(num_per_row,2))
+    row_1 = np.random.uniform((-5,-1.7),(5,-2.3),size=(num_per_row,2))
+    row_2 = np.random.uniform((-5,-0.3),(5,0.3),size=(num_per_row,2))
+    row_3 = np.random.uniform((-5,0.7),(5,1.3),size=(num_per_row,2))
+    row_4 = np.random.uniform((-5,2.7),(5,3.3),size=(num_per_row,2))
+    row_5 = np.random.uniform((-5,3.7),(5,4.3),size=(num_per_row,2))
+    
+    return np.vstack((row_0,row_1,row_2,row_3,row_4,row_5))
+
+def convert_coord_to_map(real_coords,map_info):
+    """ converts np.array of real_coords to occupancy grid map coords"""
+    offset = [-map_info.origin.position.x,-map_info.origin.position.y]
+    scale_factor =  1/map_info.resolution
+
+    map_coord = scale_factor * (real_coords + offset)
+    return map_coord.astype('int')
 
 def nodeMapCoordsToPose(nodes,map_info):
     """ converts a dict of nodes with vals in the 2d occupancy grid to a dict of nodes with poses. """
@@ -131,20 +166,37 @@ def nodeMapCoordsToPose(nodes,map_info):
     return output_dict
 
 if __name__ == '__main__':
-    #init_node
+    # init_node
     rospy.init_node('generate_topo_map',anonymous=True)
     print('node initialised')
 
-    #get worldmap as np array
+    # get worldmap from map_server
     print('requesting map')
     worldmap = getMapFromMapServer()
-    print('got map')
+    print('received map')
     worldmap_array = np.array(worldmap.map.data).reshape(worldmap.map.info.height,worldmap.map.info.width)
 
-    #generate nodes
+    # generate nodes across the whole map avoiding obstacles (this method does not specifically target crops)
+    # cluster_centres = SpectralClusterMap(worldmap_array,10)
+    # pixel_nodes,edges = generate_graph(cluster_centres,worldmap_array)
+    # nodes = nodeMapCoordsToPose(pixel_nodes,worldmap.map.info)
+
     print('generating nodes')
-    cluster_centres = SpectralClusterMap(worldmap_array,10)
-    pixel_nodes,edges = generate_graph(cluster_centres,worldmap_array)
-    nodes = nodeMapCoordsToPose(pixel_nodes,worldmap.map.info)
+    # convert coordinates of detected crops to the occupancy grid coordinate system (refered to as map here)
+    crop_coords = convert_coord_to_map(fake_crops(100),worldmap.map.info)
+    
+    # cluster crop detections using kmeans
+    clustered_crops = cluster_crops(crop_coords,60)
+    
+    # generate nodes and edges for a graph using minimum spanning tree algorithm 
+    crop_map_nodes,crop_edges = generate_graph(clustered_crops,worldmap_array=worldmap_array,aspect_ratio=[1,5])
+    
+    # convert the nodes back to the proper coordinate system and turn 2d coordinates into pose.
+    crop_nodes = nodeMapCoordsToPose(crop_map_nodes,worldmap.map.info)
     print('nodes generated')
-    print(nodes)
+    
+    print('adding nodes to topological map')
+    for node,pose in crop_nodes.items():
+        pass
+
+    
