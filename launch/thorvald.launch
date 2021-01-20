@@ -1,4 +1,7 @@
 <launch>
+    <arg name="tmap" default="topological_map" />
+    <arg name="generate_topo_map" default="false" />
+
     <!-- Thorvald Launch -->
     <include file="$(find uol_cmp9767m_base)/launch/thorvald-sim.launch" >
         <arg name="second_robot" value="false"/>
@@ -8,12 +11,21 @@
     </include>
 
     <!-- Topological navigation -->
-    <include file="topological_navigation.launch" />
+    <include file="topological_navigation.launch" >
+        <arg name="tmap" value="$(arg tmap)" />
+    </include>
+
+    <!-- generate topo map -->
+    <group if="$(arg generate_topo_map)">
+        <node pkg="thorvald_2dnav" type="generate_topo_map.py" name="generate_topo_map" output="screen"/>
+    </group>
    
-    <!-- custom nodes -->
-    <node pkg="vision" type="vision_node.py" name="vision_node" args="thorvald_001" output="screen"/>
-    <node pkg="state_machine" type="state_machine.py" name="state_machine" args="thorvald_001" output="screen"/>
-    <node pkg="thorvald_2dnav" type="translation_move.py" name="translation_move_node" args="thorvald_001" output="screen"/>
+    <!-- weeding nodes -->
+    <group unless="$(arg generate_topo_map)">
+        <node pkg="vision" type="vision_node.py" name="vision_node" args="thorvald_001" output="screen"/>
+        <node pkg="state_machine" type="state_machine.py" name="state_machine" args="thorvald_001" output="screen"/>
+        <node pkg="thorvald_2dnav" type="translation_move.py" name="translation_move_node" args="thorvald_001" output="screen"/>
+    </group>
 
     <!-- rviz -->
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find thorvald_2dnav)/thorvald_rviz_config.rviz" />

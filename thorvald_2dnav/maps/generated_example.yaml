@@ -1,0 +1,3438 @@
+- meta:
+    map: generated
+    node: node_0
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.440000+00:00
+    tag:
+    - crops
+    - start
+    timestamp: 2440000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_0_to_node_29
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_29
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_0_to_node_47
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_47
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_0_to_node_52
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_52
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_0
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -3.64999986812
+        y: -2.94999985844
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_1
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.410000+00:00
+    tag:
+    - crops
+    timestamp: 2410000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_1_to_node_38
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_38
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_56_to_node_1_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_56
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_1
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 2.60000022501
+        y: -2.14999984652
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_10
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.980000+00:00
+    tag:
+    - crops
+    timestamp: 1980000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_10_to_node_21
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_21
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_10
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -4.49999988079
+        y: 4.00000024512
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_11
+    pointset: generated
+    published_at: 1970-01-01 00:00:03.355000+00:00
+    tag:
+    - crops
+    timestamp: 3355000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_11_to_node_7
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_7
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_35_to_node_11_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_35
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_11
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 3.75000024214
+        y: 1.00000020042
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_12
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.535000+00:00
+    tag:
+    - crops
+    timestamp: 1535000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_37_to_node_12_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_37
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_57_to_node_12_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_57
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_12
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 0.950000200421
+        y: 3.85000024289
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_13
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.380000+00:00
+    tag:
+    - crops
+    timestamp: 1380000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_30_to_node_13_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_30
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_46_to_node_13_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_46
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_13
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -1.89999984205
+        y: -2.04999984503
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_14
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.240000+00:00
+    tag:
+    - crops
+    timestamp: 1240000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_14_to_node_19
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_19
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_38_to_node_14_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_38
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_46_to_node_14_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_46
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_14
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 0.600000195205
+        y: -2.04999984503
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_15
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.990000+00:00
+    tag:
+    - crops
+    timestamp: 2990000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_15_to_node_55
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_55
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_37_to_node_15_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_37
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_15
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 3.35000023618
+        y: 3.95000024438
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_16
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.955000+00:00
+    tag:
+    - crops
+    timestamp: 2955000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_16_to_node_39
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_39
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_59_to_node_16_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_59
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_16
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 1.7000002116
+        y: -3.09999986067
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_17
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.925000+00:00
+    tag:
+    - crops
+    timestamp: 2925000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_17_to_node_26
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_26
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_17
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 4.55000025406
+        y: -3.04999985993
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_18
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.890000+00:00
+    tag:
+    - crops
+    timestamp: 2890000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_18_to_node_5
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_5
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_31_to_node_18_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_31
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_34_to_node_18_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_34
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_18
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -1.69999983907
+        y: 1.85519468232e-07
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_19
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.860000+00:00
+    tag:
+    - crops
+    timestamp: 2860000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_5_to_node_19_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_5
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_14_to_node_19_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_14
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_19_to_node_48
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_48
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_19
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 0.75000019744
+        y: -0.0999998159706
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_2
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.380000+00:00
+    tag:
+    - crops
+    timestamp: 2380000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_2_to_node_9
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_9
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_57_to_node_2_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_57
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_2
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -0.799999825656
+        y: 3.90000024363
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_20
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.815000+00:00
+    tag:
+    - crops
+    timestamp: 1815000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_47_to_node_20_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_47
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_20
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -4.79999988526
+        y: -2.04999984503
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_21
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.850000+00:00
+    tag:
+    - crops
+    timestamp: 1850000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_9_to_node_21_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_9
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_10_to_node_21_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_10
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_21
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -2.69999985397
+        y: 3.95000024438
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_22
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.755000+00:00
+    tag:
+    - crops
+    timestamp: 1755000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_34_to_node_22_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_34
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_49_to_node_22_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_49
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_22
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -3.89999987185
+        y: 1.85519468232e-07
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_23
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.790000+00:00
+    tag:
+    - crops
+    timestamp: 1790000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_23_to_node_3
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_3
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_23
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 4.60000025481
+        y: 3.00000023022
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_24
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.670000+00:00
+    tag:
+    - crops
+    timestamp: 1670000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_24_to_node_50
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_50
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_42_to_node_24_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_42
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_24
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -4.09999987483
+        y: 2.90000022873
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_25
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.725000+00:00
+    tag:
+    - crops
+    timestamp: 1725000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_40_to_node_25_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_40
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_25
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 4.50000025332
+        y: -0.0999998159706
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_26
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.575000+00:00
+    tag:
+    - crops
+    timestamp: 1575000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_17_to_node_26_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_17
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_26_to_node_39
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_39
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_26
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 3.45000023767
+        y: -3.09999986067
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_27
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.615000+00:00
+    tag:
+    - crops
+    timestamp: 1615000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_33_to_node_27_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_33
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_58_to_node_27_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_58
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_27
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 1.25000020489
+        y: 3.00000023022
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_28
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.015000+00:00
+    tag:
+    - crops
+    timestamp: 2015000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_28_to_node_52
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_52
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_44_to_node_28_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_44
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_28
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -1.94999984279
+        y: -3.09999986067
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_29
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.055000+00:00
+    tag:
+    - crops
+    timestamp: 2055000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_0_to_node_29_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_0
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_29
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -4.69999988377
+        y: -3.04999985993
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_3
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.350000+00:00
+    tag:
+    - crops
+    timestamp: 2350000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_3_to_node_58
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_58
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_23_to_node_3_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_23
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_3
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 3.40000023693
+        y: 3.00000023022
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_30
+    pointset: generated
+    published_at: 1970-01-01 00:00:03.295000+00:00
+    tag:
+    - crops
+    timestamp: 3295000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_30_to_node_13
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_13
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_47_to_node_30_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_47
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_30
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -2.94999985769
+        y: -1.99999984428
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_31
+    pointset: generated
+    published_at: 1970-01-01 00:00:03.220000+00:00
+    tag:
+    - crops
+    timestamp: 3220000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_4_to_node_31_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_4
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_31_to_node_18
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_18
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_31_to_node_54
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_54
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_31
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -1.79999984056
+        y: 0.950000199676
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_32
+    pointset: generated
+    published_at: 1970-01-01 00:00:03.020000+00:00
+    tag:
+    - crops
+    timestamp: 3020000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_32_to_node_54
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_54
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_45_to_node_32_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_45
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_32
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 0.55000019446
+        y: 0.900000198931
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_33
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.095000+00:00
+    tag:
+    - crops
+    timestamp: 2095000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_33_to_node_27
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_27
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_33_to_node_51
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_51
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_33
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -0.349999818951
+        y: 2.95000022948
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_34
+    pointset: generated
+    published_at: 1970-01-01 00:00:03.090000+00:00
+    tag:
+    - crops
+    timestamp: 3090000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_34_to_node_18
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_18
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_34_to_node_22
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_22
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_34
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -2.74999985471
+        y: 1.85519468232e-07
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_35
+    pointset: generated
+    published_at: 1970-01-01 00:00:03.060000+00:00
+    tag:
+    - crops
+    timestamp: 3060000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_35_to_node_11
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_11
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_35
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 4.55000025406
+        y: 1.00000020042
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_36
+    pointset: generated
+    published_at: 1970-01-01 00:00:03.150000+00:00
+    tag:
+    - crops
+    timestamp: 3150000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_36_to_node_40
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_40
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_36_to_node_48
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_48
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_36
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 2.40000022203
+        y: -0.0499998152256
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_37
+    pointset: generated
+    published_at: 1970-01-01 00:00:03.110000+00:00
+    tag:
+    - crops
+    timestamp: 3110000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_37_to_node_12
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_12
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_37_to_node_15
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_15
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_37
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 2.00000021607
+        y: 3.95000024438
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_38
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.950000+00:00
+    tag:
+    - crops
+    timestamp: 1950000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_1_to_node_38_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_1
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_38_to_node_14
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_14
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_38
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 1.65000021085
+        y: -2.09999984577
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_39
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.805000+00:00
+    tag:
+    - crops
+    timestamp: 2805000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_16_to_node_39_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_16
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_26_to_node_39_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_26
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_39
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 2.50000022352
+        y: -3.14999986142
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_4
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.320000+00:00
+    tag:
+    - crops
+    timestamp: 2320000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_4_to_node_31
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_31
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_4_to_node_53
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_53
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_4
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -2.74999985471
+        y: 1.00000020042
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_40
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.830000+00:00
+    tag:
+    - crops
+    timestamp: 2830000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_36_to_node_40_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_36
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_40_to_node_25
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_25
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_40
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 3.35000023618
+        y: -0.0499998152256
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_41
+    pointset: generated
+    published_at: 1970-01-01 00:00:03.175000+00:00
+    tag:
+    - crops
+    timestamp: 3175000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_41_to_node_54
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_54
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_50_to_node_41_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_50
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_51_to_node_41_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_51
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_41
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -2.59999985248
+        y: 2.85000022799
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_42
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.490000+00:00
+    tag:
+    - crops
+    timestamp: 1490000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_42_to_node_24
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_24
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_42
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -4.84999988601
+        y: 3.05000023097
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_43
+    pointset: generated
+    published_at: 1970-01-01 00:00:03.270000+00:00
+    tag:
+    - crops
+    timestamp: 3270000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_56_to_node_43_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_56
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_43
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 4.80000025779
+        y: -2.04999984503
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_44
+    pointset: generated
+    published_at: 1970-01-01 00:00:03.320000+00:00
+    tag:
+    - crops
+    timestamp: 3320000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_44_to_node_6
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_6
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_44_to_node_28
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_28
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_44
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -0.949999827892
+        y: -3.04999985993
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_45
+    pointset: generated
+    published_at: 1970-01-01 00:00:03.385000+00:00
+    tag:
+    - crops
+    timestamp: 3385000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_45_to_node_7
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_7
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_45_to_node_32
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_32
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_45
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 1.65000021085
+        y: 1.05000020117
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_46
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.320000+00:00
+    tag:
+    - crops
+    timestamp: 1320000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_46_to_node_13
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_13
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_46_to_node_14
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_14
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_46
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -0.999999828637
+        y: -2.09999984577
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_47
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.450000+00:00
+    tag:
+    - crops
+    timestamp: 1450000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_0_to_node_47_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_0
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_47_to_node_20
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_20
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_47_to_node_30
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_30
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_47
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -3.89999987185
+        y: -2.04999984503
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_48
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.885000+00:00
+    tag:
+    - crops
+    timestamp: 1885000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_19_to_node_48_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_19
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_36_to_node_48_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_36
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_48
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 1.40000020713
+        y: -0.0999998159706
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_49
+    pointset: generated
+    published_at: 1970-01-01 00:00:01.920000+00:00
+    tag:
+    - crops
+    timestamp: 1920000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_49_to_node_22
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_22
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_49
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -4.74999988452
+        y: -0.0499998152256
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_5
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.290000+00:00
+    tag:
+    - crops
+    timestamp: 2290000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_5_to_node_19
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_19
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_18_to_node_5_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_18
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_5
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -0.149999815971
+        y: -0.0999998159706
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_50
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.570000+00:00
+    tag:
+    - crops
+    timestamp: 2570000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_24_to_node_50_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_24
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_50_to_node_41
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_41
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_50
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -3.44999986514
+        y: 3.10000023171
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_51
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.540000+00:00
+    tag:
+    - crops
+    timestamp: 2540000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_33_to_node_51_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_33
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_51_to_node_9
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_9
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_51_to_node_41
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_41
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_51
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -1.74999983981
+        y: 3.10000023171
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_52
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.510000+00:00
+    tag:
+    - crops
+    timestamp: 2510000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_0_to_node_52_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_0
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_28_to_node_52_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_28
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_52
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -2.54999985173
+        y: -3.14999986142
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_53
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.475000+00:00
+    tag:
+    - crops
+    timestamp: 2475000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_4_to_node_53_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_4
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_8_to_node_53_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_8
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_53
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -3.49999986589
+        y: 0.950000199676
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_54
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.695000+00:00
+    tag:
+    - crops
+    timestamp: 2695000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_31_to_node_54_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_31
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_32_to_node_54_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_32
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_41_to_node_54_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_41
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_54
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -0.549999821931
+        y: 1.15000020266
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_55
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.665000+00:00
+    tag:
+    - crops
+    timestamp: 2665000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_15_to_node_55_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_15
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_55
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 4.40000025183
+        y: 4.10000024661
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_56
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.625000+00:00
+    tag:
+    - crops
+    timestamp: 2625000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_56_to_node_1
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_1
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_56_to_node_43
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_43
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_56
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 3.45000023767
+        y: -2.04999984503
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_57
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.595000+00:00
+    tag:
+    - crops
+    timestamp: 2595000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_57_to_node_2
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_2
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_57_to_node_12
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_12
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_57
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -0.0499998144805
+        y: 3.95000024438
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_58
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.765000+00:00
+    tag:
+    - crops
+    timestamp: 2765000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_3_to_node_58_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_3
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_58_to_node_27
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_27
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_58
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 2.30000022054
+        y: 2.95000022948
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_59
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.730000+00:00
+    tag:
+    - crops
+    timestamp: 2730000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_59_to_node_6
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_6
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_59_to_node_16
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_16
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_59
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 0.75000019744
+        y: -3.09999986067
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_6
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.255000+00:00
+    tag:
+    - crops
+    timestamp: 2255000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_44_to_node_6_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_44
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_59_to_node_6_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_59
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_6
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -0.199999816716
+        y: -3.04999985993
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_7
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.225000+00:00
+    tag:
+    - crops
+    timestamp: 2225000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_11_to_node_7_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_11
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_45_to_node_7_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_45
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_7
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: 2.60000022501
+        y: 0.950000199676
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_8
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.180000+00:00
+    tag:
+    - crops
+    timestamp: 2180000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_8_to_node_53
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_53
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_8
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -4.74999988452
+        y: 0.950000199676
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: node_9
+    pointset: generated
+    published_at: 1970-01-01 00:00:02.130000+00:00
+    tag:
+    - crops
+    timestamp: 2130000000
+  node:
+    edges:
+    - action: move_base
+      edge_id: node_2_to_node_9_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_2
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_9_to_node_21
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_21
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    - action: move_base
+      edge_id: node_51_to_node_9_reverse
+      inflation_radius: 0.0
+      map_2d: generated
+      node: node_51
+      recovery_behaviours_config: ''
+      top_vel: 0.55
+    localise_by_topic: ''
+    map: generated
+    name: node_9
+    pointset: generated
+    pose:
+      orientation:
+        w: 1.0
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      position:
+        x: -1.79999984056
+        y: 3.90000024363
+        z: 0.0
+    verts:
+    - x: 0.692909657955
+      y: 0.287012577057
+    - x: 0.287012577057
+      y: 0.692909657955
+    - x: -0.287012577057
+      y: 0.692909657955
+    - x: -0.692909657955
+      y: 0.287012577057
+    - x: -0.692909657955
+      y: -0.287012577057
+    - x: -0.287012577057
+      y: -0.692909657955
+    - x: 0.287012577057
+      y: -0.692909657955
+    - x: 0.692909657955
+      y: -0.287012577057
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
+- meta:
+    map: generated
+    node: origin
+    pointset: generated
+    published_at: 1970-01-01 00:01:51.835000+00:00
+    tag:
+      - origin
+    timestamp: 111835000000
+  node:
+    edges: []
+    localise_by_topic: ''
+    map: generated
+    name: origin
+    pointset: generated
+    pose:
+      orientation:
+        w: -0.0157500599187
+        x: -1.42786859732e-07
+        y: 8.94748709073e-08
+        z: 0.999875960113
+      position:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+    verts:
+    - x: 0.20000000298
+      y: 0.20000000298
+    - x: -0.20000000298
+      y: -0.20000000298
+    xy_goal_tolerance: 0.3
+    yaw_goal_tolerance: 0.1
