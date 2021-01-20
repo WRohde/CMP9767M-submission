@@ -22,9 +22,11 @@ The behaviour of the robot is controlled using a smach state machine.
 * run source devel/setup.bash
 * navigate to cmp9767m_submission/launch/ 
 > roslaunch thorvald.launch
-
-### tmap argument
-* you can specify a topological map with the tmap:= argument. It defaults to topological_map   
+* tmap argument you can specify a topological map with the tmap:= argument. It defaults to topological_map.  
+    * a user-defined topological map
+      > roslaunch thorvald.launch tmap:=topological_map
+    * an example generated topological map
+      > roslaunch thorvald.launch tmap:=generated
 
 ## useful topological_utils commands
 * run rosrun topological_utils load_yaml_map.py $(rospack find thorvald_2dnav)/maps/topological_map.yaml -f
