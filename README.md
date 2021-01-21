@@ -10,13 +10,34 @@ The behaviour of the robot is controlled using a smach state machine.
 ## Getting Started
 
 * install LCAS ROS
-* curl https://raw.githubusercontent.com/LCAS/rosdistro/master/lcas-rosdistro-setup.sh | bash -
+> curl https://raw.githubusercontent.com/LCAS/rosdistro/master/lcas-rosdistro-setup.sh | bash -
+> sudo apt-get install \
+>  ros-melodic-gmapping \
+>  ros-melodic-topological-utils \
+>  ros-melodic-robot-pose-publisher
+>  ros-melodic-robot-localization \
+>  ros-melodic-topological-navigation \
+>  ros-melodic-amcl \
+>  ros-melodic-fake-localization \
+>  ros-melodic-smach
 * git clone the repo to the src folder of a catkin workspace. Run catkin_make from the root of the catkin_workspace.
+
+## On first launch 
+* run source devel/setup.bash
+* navigate to cmp9767m_submission/launch/ 
+> roslaunch thorvald.launch
+* you will see an error in the logs as the expected topological map can't be found. You can run the following to load the maps currently in the repo.
+> run rosrun topological_utils load_yaml_map.py $(rospack find thorvald_2dnav)/maps/topological_map.yaml 
+> run rosrun topological_utils load_yaml_map.py $(rospack find thorvald_2dnav)/maps/empty_map.yaml 
+> run rosrun topological_utils load_yaml_map.py $(rospack find thorvald_2dnav)/maps/generated_example.yaml 
+* the mapserver stores only one map with each pointset name, if you wish to load a map with a different pointset name use the --pointset arg e.g.
+> run rosrun topological_utils load_yaml_map.py $(rospack find thorvald_2dnav)/maps/empty_map.yaml --pointset custom_empty_map
 
 ## ros launch for topo map generation
 * run source devel/setup.bash
 * navigate to cmp9767m_submission/launch/ 
-> roslaunch thorvald.launch generate_topo_map:=true
+* run the launch command below. Replace the tmap arg with your desired pointset name
+> roslaunch thorvald.launch generate_topo_map:=true tmap:=custom_generated_map
 
 ## ros launch for weed spraying
 * run source devel/setup.bash
