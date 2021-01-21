@@ -18,6 +18,7 @@
     <!-- generate topo map -->
     <group if="$(arg generate_topo_map)">
         <node pkg="thorvald_2dnav" type="generate_topo_map.py" name="generate_topo_map" output="screen"/>
+        <node pkg="topological_utils" type="load_yaml_map.py" name="load_yaml_map" args="$(find thorvald_2dnav)/maps/empty_map.yaml -f --pointset $(arg tmap)"  />
     </group>
    
     <!-- weeding nodes -->
